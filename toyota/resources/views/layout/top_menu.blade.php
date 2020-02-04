@@ -27,7 +27,6 @@
                 @if($loop->first)
                     @php($total = $total + 1)
                     <div id="sec_menu_01">
-                        
                         <div class="_inner">
                             <div class="row">
                                 <div class="col s12 m5 l5 contentCat">
@@ -69,21 +68,20 @@
                             </div>
                         </div>
                     </div>
-
                 @endif
             @endforeach
 
             @if($carList->count() > 1)
                 <div id="sec_menu_02">
                     <div class="_inner">
-                    @if($total == 1)
-                        @php($total = $total + 1)
-                        <div class="row">
-                            <div class="col l5 m5 s12">
-                                <h2 class="heading_2_dt inline clearfix">Các mẫu {{$carCate->name}} khác</h2>
+                        @if($total == 1)
+                            @php($total = $total + 1)
+                            <div class="row">
+                                <div class="col l5 m5 s12">
+                                    <h2 class="heading_2_dt inline clearfix">Các mẫu {{$carCate->name}} khác</h2>
+                                </div>
                             </div>
-                        </div>
-                    @endif
+                        @endif
                     
                         <div class="row">
                             @foreach($carList as $car)
@@ -154,6 +152,7 @@
                            @endforeach 
                         </div>
                     </div>
+                </div>
             @endif
         </div>
     @endforeach
