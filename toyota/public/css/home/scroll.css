@@ -1,0 +1,11 @@
+#myScroll {
+    border: 0px solid #999;
+}
+
+.loading {
+    color: red;
+}
+.dynamic {
+    background-color:#ccc;
+    color:#000;
+}
