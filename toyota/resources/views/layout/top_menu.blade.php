@@ -20,12 +20,10 @@
 </div>
 <div class="col l9 m9 s9">
     @foreach($carCategory as $carCate)
-        @php($total = 0)
         <div id="tab_li_0{{$carCate->id}}" class="content-tab menuHeaderContent animated fadeIn go">
             @php($carList = $carDetail->where('car_cate_id', $carCate->id))
             @foreach($carList as $car)
                 @if($loop->first)
-                    @php($total = $total + 1)
                     <div id="sec_menu_01">
                         <div class="_inner">
                             <div class="row">
@@ -46,7 +44,7 @@
                                             <br />
                                             <span>• Nhi&#234;n liệu : {{$car->fuel}} </span>
                                             <br />
-                                            <span>• Xuất xứ : {{$car->orign}} </span>
+                                            <span>• Xuất xứ : {{$car->origin}} </span>
                                             <br />
                                         <span>• Thông tin khác: <br /> {!!$car->info!!} </span>
                                     </p>
@@ -74,19 +72,14 @@
             @if($carList->count() > 1)
                 <div id="sec_menu_02">
                     <div class="_inner">
-                        @if($total == 1)
-                            @php($total = $total + 1)
-                            <div class="row">
-                                <div class="col l5 m5 s12">
-                                    <h2 class="heading_2_dt inline clearfix">Các mẫu {{$carCate->name}} khác</h2>
-                                </div>
+                        <div class="row">
+                            <div class="col l5 m5 s12">
+                                <h2 class="heading_2_dt inline clearfix">Các mẫu {{$carCate->name}} khác</h2>
                             </div>
-                        @endif
-                    
+                        </div>
                         <div class="row">
                             @foreach($carList as $car)
                                 @if($loop->first)
-                                    @php($total = $total + 1)
                                     <div class="col l6 m6 s12 item_sm_header item_sm notshow"
                                          data-image="/data/car/avatar/{{$car->id}}/{{$car->avatar}}"
                                          data-price="{{ number_format($car->price) }}"
@@ -97,9 +90,9 @@
                                             <br />
                                             <span>• Nhi&#234;n liệu : {{$car->fuel}} </span>
                                             <br />
-                                            <span>• Xuất xứ : {{$car->orign}} </span>
+                                            <span>• Xuất xứ : {{$car->origin}} </span>
                                             <br />
-                                        <span>• Thông tin khác: <br /> {!!$car->info!!} </span>"
+                                            <span>• Thông tin khác: <br /> {!!$car->info!!} </span>"
                                          data-url="/xe/{{$car->permalink}}.html">
                                         <div class="row">
                                             <div class="col l6 m6 s12">
@@ -122,15 +115,15 @@
                                         data-image="/data/car/avatar/{{$car->id}}/{{$car->avatar}}"
                                         data-price="{{ number_format($car->price) }}"
                                         data-name="{{$car->name}}"
-                                        data-desc="<span>• Số chỗ ngồi : {{$car->number_of_seats}} chỗ </span>
+                                        data-desc="<span>• Số chỗ ngồi 2: {{$car->number_of_seats}} chỗ </span>
                                             <br />
                                             <span>• Kiểu d&#225;ng : {{$car->design}} </span>
                                             <br />
                                             <span>• Nhi&#234;n liệu : {{$car->fuel}} </span>
                                             <br />
-                                            <span>• Xuất xứ : {{$car->orign}} </span>
+                                            <span>• Xuất xứ : {{$car->origin}} </span>
                                             <br />
-                                        <span>• Thông tin khác: <br /> {!!$car->info!!} </span>"
+                                            <span>• Thông tin khác: <br /> {{$car->info}} </span>"
                                          data-url="/xe/{{$car->permalink}}.html">
                                         <div class="row">
                                             <div class="col l6 m6 s12">
