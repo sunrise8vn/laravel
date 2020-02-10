@@ -2,12 +2,7 @@ function openPage(pageURL) {
     window.location.href = pageURL;
 }
 
-loadVideo();
-function loadVideo() {
-    var video = document.getElementById('bgvid');
-    video.load();
-    video.play();
-}
+
 
 
 $("#lien-he").submit(function(event) {

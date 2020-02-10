@@ -39,7 +39,8 @@
                 <div class="box-body">
             		<div class="col-md-3">
                         <div class="form-group">
-                            <button type="submit" class="btn btn-block btn-info btn-flat" onclick="openPage('/cp/service/accessary/create')">Thêm sản phẩm</button>
+                            <button type="submit" class="btn btn-block btn-info btn-flat" onclick="openPage('{{ route('service.genuine-accessary.getCreate') }}')">
+                                <span class="glyphicon glyphicon-plus"></span> Thêm sản phẩm</button>
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -55,21 +56,22 @@
                             </thead>
                             <tbody>
                             @foreach($genuineAccessary as $geAcc)
-                                <tr >
+                                <tr id="tr{{$geAcc->id}}">
                                     <td class="left">{{$geAcc->name}}</td>
                                     <td class="center">
                                         <div style="max-width: 300px; text-align: center; display: inline-table;">
-                                            <img class="lazy" th:alt="${ga.name}" src="/data/service/accessary/{{$geAcc->avatar}}" style="width: 100%;">
+                                            <img class="lazy" src="/data/service/accessary/{{$geAcc->avatar}}" style="width: 100%;">
                                         </div>
                                     </td>
                                     <td class="center">
-                                    	<a href="/cp/service/accessary/details/create/{{$geAcc->id}}"><i class="fa fa-pencil-square-o fa-fw"></i> Thêm thông tin</a>
+                                    	<a href="/cp/service/accessary/details/create/{{$geAcc->id}}">
+                                        <i class="fa fa-plus"></i> Thêm thông tin</a>
                                     </td>
                                     <td class="center">
-                                    	<a href="/cp/service/accessary/edit/{{$geAcc->id}}"><i class="fa fa-pencil-square-o fa-fw"></i> Sửa</a>
+                                    	<a href="{{ route('service.genuine-accessary.getEdit', $geAcc->id) }}"><i class="fa fa-pencil-square-o fa-fw"></i> Sửa</a>
                                     </td>
-                                    <td class="center">
-                                    	<a href="/cp/service/accessary/delete/{{$geAcc->id}}"><i class="fa fa-trash-o fa-fw"></i> Xóa</a>
+                                    <td class="center" style="min-width: 50px;">
+                                      <a onclick="deleteConfirm({{$geAcc->id}});"><i class="fa fa-trash-o fa-fw"></i> Xóa</a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -89,5 +91,45 @@
 
 </div>
 
+@endsection
 
+@section('script')
+    <script type="text/javascript">
+        function deleteConfirm(id) {
+            Swal.fire({
+              title: 'Bạn chắc chắn muốn xóa bài viết đã chọn?',
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#d33',
+              cancelButtonColor: '#3085d6',
+              confirmButtonText: 'Vâng, xóa nó đi!',
+              cancelButtonText: 'Hủy',
+            }).then((result) => {
+              if (result.value) {
+                $.ajax({
+                    type: "get",
+                    url: "{{ route('service.genuine-accessary.getDelete') }}",
+                    data : {
+                        id : id,
+                    },
+                    success() {
+                        Swal.fire(
+                          'Thông báo',
+                          'Xóa sản phẩm phụ tùng chính hãng thành công.',
+                          'success'
+                        );
+                        $("#tr"+id).remove();
+                    },
+                    error() { 
+                        Swal.fire({
+                          icon: 'error',
+                          title: 'Cảnh báo',
+                          text: 'Đã xảy ra lỗi!',
+                        })
+                    }
+                });
+              }
+            })
+        }
+    </script>
 @endsection

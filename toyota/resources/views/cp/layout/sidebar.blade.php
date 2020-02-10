@@ -37,30 +37,16 @@
         </li>
 
         <li class="treeview">
-          <a href="#">
-            <i class="fa fa-users fa-edit"></i> 
-              <span>Thành viên</span>
-              <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="cp/user/list"><i class="fa fa-circle-o"></i> Danh sách</a></li>
-            <li><a href="cp/user/add"><i class="fa fa-circle-o"></i> Thêm</a></li>
-          </ul>
-        </li>
-
-        <li class="treeview">
             <a href="#">
                 <i class="fa fa-users fa-folder"></i>
-                <span>Quản trị website</span>
+                <span>Thành viên quản trị</span>
                 <span class="pull-right-container">
                     <i class="fa fa-angle-left pull-right"></i>
                 </span>
             </a>
             <ul class="treeview-menu">
-                <li><a href="/cp/users"><i class="fa fa-circle-o"></i> Danh sách</a></li>
-                <li><a href="/cp/users/create"><i class="fa fa-circle-o"></i> Thêm</a></li>
+                <li><a href="/cp/user"><i class="fa fa-circle-o"></i> Danh sách</a></li>
+                <li><a href="/cp/user/create"><i class="fa fa-circle-o"></i> Thêm</a></li>
             </ul>
         </li>
 
@@ -315,7 +301,7 @@
 
                 </li> --}}
                 <li><a href="/cp/car-function"><i class="fa fa-circle-o"></i> Danh sách</a></li>
-                <li><a href="/cp/car-function/create"><i class="fa fa-circle-o"></i> Thêm</a></li>
+                {{-- <li><a href="/cp/car-function/create"><i class="fa fa-circle-o"></i> Thêm</a></li> --}}
             </ul>
         </li>
 
@@ -525,7 +511,7 @@
                         </span>
                     </a>
                     <ul class="treeview-menu" style="display: none;">
-                        <li class="treeview" style="height: auto;">
+                        {{-- <li class="treeview" style="height: auto;">
                             <a href="#"><i class="fa fa-folder-open"></i> Danh mục
                                 <span class="pull-right-container">
                                     <i class="fa fa-angle-left pull-right"></i>
@@ -535,7 +521,7 @@
                                 <li><a href="/cp/service/accessary/group"><i class="fa fa-circle-o"></i> Danh sách</a></li>
                                 <li><a href="/cp/service/accessary/group/create"><i class="fa fa-circle-o"></i> Thêm</a></li>
                             </ul>
-                        </li>
+                        </li> --}}
                         <li class="treeview" style="height: auto;">
                             <a href="#"><i class="fa fa-folder-open"></i> Sản phẩm
                                 <span class="pull-right-container">

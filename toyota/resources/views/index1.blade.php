@@ -166,151 +166,10 @@
                 </div>
             </div>
         </div>
-        <div class="sec05 hide-mb">
-            <div class="container">
-                <div class="row parentRow">
-                    @foreach($salesmenGroup as $sg)
-                   
-                        @switch($loop->index)
-                            @case(0)
-                                @php($total = 0)
-                                <div class="col l6 m6 s12 productRow">
-                                    <div class="advisor a1">
-                                        <div class="sec05-header">
-                                            <h3 class="heading">{{$sg->group}}</h3>
-                                            <span class="link-view-all only-show-mb"><a href="nhan-vien/ban-hang.html"><span>Xem thêm...</span></a></span>
-                                        </div>
-                                        <div class="row">
-                                            @foreach($salesmen as $saler)
-                                                @if($saler->group_id == $sg->id)
-                                                    @php($total = $total + 1)
-                                                    @if($total<3)
-                                                        <div class="col l6 m6 s12">
-                                                            <div class="owl-carousel slide-nv slide-nv-product">
-                                                                <div class="item">
-                                                                    <div class="inner clearfix">
-                                                                        <img src="/data/salesmen/{{$saler->avatar}}" alt="{{$saler->fullname}}">
-                                                                        <div class="info">
-                                                                            <p class="info_ct">
-                                                                                <span class="name">{{$saler->fullname}}</span>
-                                                                                <span class="position">{{$saler->position}}</span>
-                                                                                <span class="email">{{$saler->email}}</span>
-                                                                            </p>
-                                                                            <span class="phone">
-                                                                                <a href="#lien-he-voi-nhan-vien" class="link various openContactStaff" data-name="{{$saler->fullname}}" data-email="{{$saler->email}}" data-staff-id="{{$saler->id}}">Liên hệ</a><b>|</b>
-                                                                                <span>{{$saler->phone}}</span>
-                                                                            </span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    @endif
-                                                @endif
-                                            @endforeach
-                                        </div>
+        
+        @include('layout.salesmen')        
 
-                                        <p class="btn-bottom viewmore-employee-product">
-                                            <a href="nhan-vien/ban-hang.html" class="link-viewmore"><span>Xem thêm...</span></a>
-                                        </p>
-                                    </div>
-                                </div>
-                            @break
-                        
-                            @case(1)
-                                @php($total = 0)
-                                <div class="col l6 m6 s12 serviceRow">
-                                    <div class="advisor a1">
-                                        <div class="sec05-header">
-                                            <h3 class="heading">{{$sg->group}}</h3>
-                                            <span class="link-view-all only-show-mb"><a href="nhan-vien/dich-vu.html"><span>Xem thêm...</span></a></span>
-                                        </div>
-                                        <div class="row">
-                                            @foreach($salesmen as $saler)
-                                                @if($saler->group_id == $sg->id)
-                                                    @php($total = $total + 1)
-                                                    @if($total<3)
-                                                        <div class="col l6 m6 s12">
-                                                            <div class="owl-carousel slide-nv slide-nv-service">
-                                                                <div class="item">
-                                                                    <div class="inner clearfix">
-                                                                        <img src="/data/salesmen/{{$saler->avatar}}" alt="{{$saler->fullname}} -Toyota Huế">
-                                                                        <div class="info">
-                                                                            <p class="info_ct">
-                                                                                <span class="name">{{$saler->fullname}}</span>
-                                                                                <span class="position">{{$saler->position}}</span>
-                                                                                <span class="email">{{$saler->email}}</span>
-                                                                            </p>
-                                                                            <span class="phone">
-                                                                                <a href="#lien-he-voi-nhan-vien" class="link various openContactStaff" data-name="{{$saler->fullname}}" data-email="{{$saler->email}}" data-staff-id="{{$saler->id}}">Liên hệ</a><b>|</b>
-                                                                                <span>{{$saler->phone}}</span>
-                                                                            </span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    @endif
-                                                @endif
-                                            @endforeach
-                                        </div>
-
-                                        <p class="btn-bottom viewmore-employee-service">
-                                            <a href="nhan-vien/dich-vu.html" class="link-viewmore"><span>Xem thêm...</span></a>
-                                        </p>
-                                    </div>
-                                </div>
-                            @break
-                        @endswitch
-                    @endforeach
-                </div>
-            </div>
-        </div>
-
-        <div class="sec06">
-            <div class="row1">
-                <div class="container">
-                    <h2 class="heading">Tin tức <span class="link-view-all only-show-mb">
-                        <a id="viewAllNews" href="tin-tuc.html"><span>Xem thêm...</span></a></span>
-                    </h2>
-                </div>
-            </div>
-            <div class="container row2">
-                <div class="box_tabs no-blur">
-                    <ul class="tabs" id="tabNewsHome" style="width: 100%;">
-                        @foreach($newsCategory as $newsCate)
-                            <li class="tab"><a href="#tab0{{$newsCate->id}}" class="">{{$newsCate->title}}</a></li>
-                        @endforeach                        
-                        <div class="indicator" style="right: 877.5px; left: 0px;"></div>
-                    </ul>
-                </div>
-                <div id="tabContentNewsHome">
-                    @foreach($newsCategory as $newsCate)
-                        <div id="tab0{{$newsCate->id}}" class="content-tab">
-                            <ul class="news row">
-                            @foreach($news as $n)
-                                @if ($n->news_cate_id == $newsCate->id)
-                                    <li class="item col s3">
-                                        <div class="inner">
-                                            <p class="img">
-                                                <a href="/tin-tuc/{{$n->permalink}}.html" target="_parent"><img src="/data/news/{{$n->avatar}}?w=278&amp;h=168&amp;mode=crop" class="lazy" data-original="/data/news/{{$n->avatar}}?w=278&amp;h=168&amp;mode=crop" alt="{{$n->title}}" style="display: inline;"></a>
-                                            </p>
-                                            <div class="txt">
-                                                <h3 class="title"><a title="{{$n->title}}" href="/tin-tuc/{{$n->permalink}}.html" alt="{{$n->title}}" target="_parent">{{$n->title}}</a></h3><span class="cate_of"><span class="auth">Đăng bởi: </span>Toyota Việt Nam</span>
-                                                <div class="desc">{{$n->summary}}</div>
-                                                <div class="item__txt__8" style="text-align: right; margin-right: 20px; margin-top: 10px">12/11/2019</div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                @endif
-                            @endforeach
-                            </ul>
-                            <p> <a class="link-viewmore" href="/tin-tuc/{{$newsCate->permalink}}"><span>Xem thêm...</span></a> </p>
-                        </div>
-                    @endforeach 
-                </div>
-            </div>
-        </div>
+        @include('layout.news')
         {{-- <iframe src="https://www.google.com/maps/d/embed?mid=1kAAhaY9wwQTnNcaY6E6IDJrD3U52NDMe" frameborder="0" style="border:0" width="100%" height="480"></iframe> --}}
         {{-- <iframe align="middle" allowfullscreen="" frameborder="0" height="480" scrolling="no" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15327.720612562362!2d107.71045566977541!3d16.172551900000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314194dfaaaaaaab%3A0x68796692620bca38!2zVHJ1bmcgVMOibSBZIFThur8gSHV54buHbiBOYW0gxJDhu5NuZw!5e0!3m2!1svi!2s!4v1542248835762" style="border:0" width="100%"></iframe> --}}
 
@@ -387,6 +246,12 @@
     @include('layout.jsfiles')
 
     <script type="text/javascript">
+        loadVideo();
+        function loadVideo() {
+            var video = document.getElementById('bgvid');
+            video.load();
+            video.play();
+        }
         // setTimeout(function () {
         //     loadParallaxHome();
         // },1000);

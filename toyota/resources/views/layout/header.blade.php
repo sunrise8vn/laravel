@@ -32,9 +32,9 @@
             <div class="menu-pc">
                 <span id="open_menu"></span>
                 <ul class="clearfix">
-                    <li class="headerText" data-path="gioi-thieu-dai-ly"><a href="gioi-thieu-dai-ly.html" class="animated fadeInShort go delay-250"> Giới thiệu đại l&#253; </a></li>
+                    <li class="headerText" data-path="gioi-thieu-dai-ly"><a href="{{ route('introduce.index') }}" class="animated fadeInShort go delay-250"> Giới thiệu đại l&#253; </a></li>
                     <li class="headerText parent" data-path="xe-moi">
-                        <a href="xe-moi.html" class="animated fadeInShort go delay-150">
+                        <a href="{{ route('newcar.index') }}" class="animated fadeInShort go delay-150">
                             Sản phẩm
                         </a>
                         <div class="box-lv2 animated fadeIn fadeOutDown go">
@@ -47,12 +47,12 @@
                             </div>
                         </div>
                     </li>
-                    <li class="headerText" data-path="dich-vu"><a href="{{ route('service') }}" class="animated fadeInShort go delay-250"> Dịch vụ </a></li>
+                    <li class="headerText" data-path="dich-vu"><a href="{{ route('service.index') }}" class="animated fadeInShort go delay-250"> Dịch vụ </a></li>
                     <li class="parent-2 parent">
                     <a >Tư vấn</a>
                     <div class="dropmenu-2">
-                        <span><a href='tu-van-tai-chinh.html'>Tư vấn t&#224;i ch&#237;nh</a></span>
-                        <span><a href='tu-van-bao-hiem.html'>Tư vấn bảo hiểm</a></span>
+                        <span><a href='{{ route('consultant-financial.index') }}'>Tư vấn t&#224;i ch&#237;nh</a></span>
+                        <span><a href='{{ route('consultant-insurance.index') }}'>Tư vấn bảo hiểm</a></span>
                     </div>
                     </li>
                 </ul>
@@ -135,17 +135,17 @@
                                 </div>
                             </div>
                             <ul class="list_menu_mb">
-                                <li><a href="gioi-thieu-dai-ly.html">Giới thiệu đại l&#253;</a></li>
-                                <li><a href="xe-moi.html">Sản phẩm</a></li>
-                                <li><a href="dich-vu.html">Dịch vụ</a></li>
+                                <li><a href="{{ route('introduce.index') }}">Giới thiệu đại l&#253;</a></li>
+                                <li><a href="{{ route('newcar.index') }}">Sản phẩm</a></li>
+                                <li><a href="{{ route('service.index') }}">Dịch vụ</a></li>
                                 <li class="parent">
                                     <a>Tư vấn</a>
                                     <div class="dropmenu-2">
                                         <span>
-                                            <a href='tu-van-tai-chinh.html'>Tư vấn t&#224;i ch&#237;nh</a>
+                                            <a href='{{ route('consultant-financial.index') }}'>Tư vấn t&#224;i ch&#237;nh</a>
                                         </span>
                                         <span>
-                                            <a href='tu-van-bao-hiem.html'>Tư vấn bảo hiểm</a>
+                                            <a href='{{ route('consultant-insurance.index') }}'>Tư vấn bảo hiểm</a>
                                         </span>
                                     </div>
                                 </li>

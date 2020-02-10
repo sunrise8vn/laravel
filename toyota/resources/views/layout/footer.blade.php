@@ -19,10 +19,10 @@
                                 <li><a title="So s&#225;nh sản phẩm" href='/so-sanh'>So s&#225;nh sản phẩm</a></li>
                                 <li><a title="Dự to&#225;n chi ph&#237;" href='/du-toan-chi-phi.html'>Dự to&#225;n chi ph&#237;</a></li>
                                 <li><a title="Hỗ trợ t&#224;i ch&#237;nh" href='/ho-tro-tai-chinh.html'>Hỗ trợ t&#224;i ch&#237;nh</a></li>
-                                <li><a title="Đăng k&#253; l&#225;i thử" href='/dang-ky-lai-thu.html'>Đăng k&#253; l&#225;i thử</a></li>
+                                <li><a title="Đăng k&#253; l&#225;i thử" href='{{ route('test-drive.index') }}'>Đăng k&#253; l&#225;i thử</a></li>
                                 <li><a title="Đặt lịch hẹn dịch vụ" href='/dang-ky-dich-vu.html'>Đặt lịch hẹn dịch vụ</a></li>
-                                <li><a title="So s&#225;nh xe đ&#227; qua sử dụng" href='/so-sanh-xe-da-qua-su-dung.html'>So s&#225;nh xe đ&#227; qua sử dụng</a></li>
-                                <li><a title="Tải bảng giá" href="/tai-file/indexa5ab.html?url=/Content/download/bang-gia-xe-15112019.pdf" target="_blank">Tải bảng giá</a></li>
+                                {{-- <li><a title="So s&#225;nh xe đ&#227; qua sử dụng" href='/so-sanh-xe-da-qua-su-dung.html'>So s&#225;nh xe đ&#227; qua sử dụng</a></li> --}}
+                                <li><a title="Tải bảng giá" href="{{ route('download.index') }}" target="_blank">Tải bảng giá</a></li>
                             </ul>
                         </div>
                         <div class="col l3 m3 s6">
@@ -37,14 +37,14 @@
                         <div class="col l3 m3 s6">
                             <ul class="ft-list">
                                 <h3>Nh&#226;n vi&#234;n</h3>
-                                <li><a title="Tư vấn sản phẩm" href='/nhan-vien/ban-hang.html'>Tư vấn sản phẩm</a></li>
-                                <li><a title="Tư vấn dịch vụ" href='/nhan-vien/dich-vu.html'>Tư vấn dịch vụ</a></li>
+                                <li><a title="Tư vấn sản phẩm" href="{{ route('salesmen.getAll', 'ban-hang') }}">Tư vấn sản phẩm</a></li>
+                                <li><a title="Tư vấn dịch vụ" href="{{ route('salesmen.getAll', 'dich-vu') }}">Tư vấn dịch vụ</a></li>
                             </ul>
                         </div>
                         <div class="col l3 m3 s6">
                             <ul class="ft-list">
                                 <h3>G&#243;c Toyota</h3>
-                                <li><a title="Lời khuy&#234;n chuy&#234;n gia" href='/loi-khuyen-chuyen-gia.html'>Lời khuy&#234;n chuy&#234;n gia</a></li>
+                                <li><a title="Lời khuy&#234;n chuy&#234;n gia" href='{{ route('expert-advice.index') }}'>Lời khuy&#234;n chuy&#234;n gia</a></li>
                             </ul>
                         </div>
                     </div>
@@ -88,7 +88,7 @@
             <div class="container">
                 <div class="ft_bt--inner">
                     <div class="col left link-ft">
-                        <span><a href="/so-do-trang.html">Sơ đồ trang</a></span><b>|</b><span><a href="/dieu-khoan-chinh-sach.html">Chính sách và điều khoản</a><b>|</b><a href="chinh-sach-bao-mat-thong-tin-ca-nhan.html">Chính sách bảo mật thông tin cá nhân</a></span>
+                        <span><a href="{{ route('site-map.index') }}">Sơ đồ trang</a></span><b>|</b><span><a href="{{ route('policy-terms.index') }}">Chính sách và điều khoản</a><b>|</b><a href="{{ route('privacy-policy.index') }}">Chính sách bảo mật thông tin cá nhân</a></span>
                     </div>
                     <div class="col right">© Bản quyền thuộc về Công ty ô tô Toyota Việt Nam</div>
                 </div>

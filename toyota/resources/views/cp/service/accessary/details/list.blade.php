@@ -37,6 +37,12 @@
                     </div>
                 </div>
                 <div class="box-body">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-block btn-info btn-flat" onclick="openPage('{{ route('service.genuine-accessary-detail.getCreateAll') }}')">
+                                <span class="glyphicon glyphicon-plus"></span> Thêm thông tin sản phẩm</button>
+                        </div>
+                    </div>
                     <div class="col-md-12">
                     	<table id="example1" class="table table-bordered table-striped dataTable">
                             <thead>
@@ -49,14 +55,16 @@
                             </thead>
                             <tbody>
                             @foreach($genuineAccessaryDetail as $geAccDet)
-                                <tr >
+                                <tr id="tr{{$geAccDet->id}}">
                                     <td class="left">{{$geAccDet->GenuineAccessary->name}}</td>
                                     <td class="left">{{$geAccDet->GenuineAccessaryGroup->name}}</td>
                                     <td class="center">
                                     	<a href="/cp/service/accessary/details/edit/{{$geAccDet->id}}"><i class="fa fa-pencil-square-o fa-fw"></i> Sửa</a>
                                     </td>
-                                    <td class="center">
-                                    	<a href="/cp/service/accessary/details/delete/{{$geAccDet->id}}"><i class="fa fa-trash-o fa-fw"></i> Xóa</a>
+                                    <td class="center" style="min-width: 50px;">
+                                        <a onclick="deleteConfirm({{$geAccDet->id}});">
+                                            <i class="fa fa-trash-o fa-fw"></i> Xóa
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -76,5 +84,45 @@
 
 </div>
 
+@endsection
 
+@section('script')
+    <script type="text/javascript">
+        function deleteConfirm(id) {
+            Swal.fire({
+              title: 'Bạn chắc chắn muốn xóa bài viết đã chọn?',
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#d33',
+              cancelButtonColor: '#3085d6',
+              confirmButtonText: 'Vâng, xóa nó đi!',
+              cancelButtonText: 'Hủy',
+            }).then((result) => {
+              if (result.value) {
+                $.ajax({
+                    type: "get",
+                    url: "{{ route('service.genuine-accessary-detail.getDelete') }}",
+                    data : {
+                        id : id,
+                    },
+                    success() {
+                        Swal.fire(
+                          'Thông báo',
+                          'Xóa thông tin sản phẩm phụ tùng chính hãng thành công.',
+                          'success'
+                        );
+                        $("#tr"+id).remove();
+                    },
+                    error() { 
+                        Swal.fire({
+                          icon: 'error',
+                          title: 'Cảnh báo',
+                          text: 'Đã xảy ra lỗi!',
+                        })
+                    }
+                });
+              }
+            })
+        }
+    </script>
 @endsection

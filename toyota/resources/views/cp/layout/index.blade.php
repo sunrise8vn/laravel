@@ -17,6 +17,10 @@
   {{-- <link rel="stylesheet" href="admin_asset/bower_components/bootstrap-daterangepicker/daterangepicker.css"> --}}
   <!-- bootstrap datepicker -->
   {{-- <link rel="stylesheet" href="admin_asset/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css"> --}}
+  
+  <link rel="stylesheet" href="admin_asset/bower_components/select2/dist/css/select2.min.css">
+  {{-- <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" /> --}}
+{{-- <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script> --}}
 
   <!-- DataTables -->
   <link rel="stylesheet" href="admin_asset/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
@@ -40,6 +44,7 @@
     {{-- <script type="text/javascript" language="javascript" src="{{ asset('ckeditor_4.12.1_standard_easyimage/samples/js/sample.js') }}" ></script> --}}
     
     {{-- <script type="text/javascript" language="javascript" src="{{asset('ckfinder/ckfinder.js')}}"></script> --}}
+    {{-- <script src="https://kit.fontawesome.com/e342f970ed.js" crossorigin="anonymous"></script> --}}
     @yield('header')
 </head>
 <body class="hold-transition skin-blue sidebar-mini">

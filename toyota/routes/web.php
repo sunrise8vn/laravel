@@ -17,30 +17,34 @@ Route::get('/', 'HomeController@index');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/gioi-thieu-dai-ly.html', 'IntroduceController@index');
-Route::get('/so-do-trang.html', 'SiteMapController@index');
-Route::get('/dieu-khoan-chinh-sach.html', 'PolicyTermsController@index');
-Route::get('/chinh-sach-bao-mat-thong-tin-ca-nhan.html', 'PrivacyPolicyController@index');
-Route::get('/tin-tuc/{permalink}.html','NewsController@getNewsDetail');
-Route::get('/tin-tuc/{permalink}','NewsController@getAllNews');
-Route::get('/nhan-vien/{permalink}.html','SalesmenController@getAll');
-Route::get('/dich-vu.html','Service\ServiceController@index')->name('service');
-Route::get('/dich-vu','Service\ServiceController@index');
-Route::get('/xe/{permalink}.html','CarController@getCarDetail');
-Route::get('/xe/{permalink}','CarController@getCarDetail');
-Route::get('/tu-van-tai-chinh.html','ConsultantFinancialController@index');
-Route::get('/tu-van-bao-hiem.html','ConsultantInsuranceController@index');
-Route::get('/loi-khuyen-chuyen-gia.html','ExpertAdviceController@index');
-Route::get('/loi-khuyen-chuyen-gia/{permalink}.html','ExpertAdviceController@getDetail');
-// Route::get('/thu-vien/{permalink}.html','CarLibraryController@getDetail');
+Route::get('/gioi-thieu-dai-ly.html', 'IntroduceController@index')->name('introduce.index');
+Route::get('/so-do-trang.html', 'SiteMapController@index')->name('site-map.index');
+Route::get('/dieu-khoan-chinh-sach.html', 'PolicyTermsController@index')->name('policy-terms.index');
+Route::get('/chinh-sach-bao-mat-thong-tin-ca-nhan.html', 'PrivacyPolicyController@index')->name('privacy-policy.index');
+Route::get('/tin-tuc/{permalink}.html','NewsController@getNewsDetail')->name('news.getDetail');
+Route::get('/tin-tuc/{permalink}','NewsController@getAllNews')->name('news.getAll');
+Route::get('/nhan-vien/{permalink}','SalesmenController@getAll')->name('salesmen.getAll');
+Route::get('/dich-vu.html','Service\ServiceController@index')->name('service.index');
+Route::get('/xe/{permalink}','CarController@getCarDetail')->name('car.permalink');
+Route::get('/xe-moi','NewCarController@index')->name('newcar.index');
+Route::get('/tu-van-tai-chinh.html','ConsultantFinancialController@index')->name('consultant-financial.index');
+Route::get('/tu-van-bao-hiem.html','ConsultantInsuranceController@index')->name('consultant-insurance.index');
+Route::get('/loi-khuyen-chuyen-gia','ExpertAdviceController@index')->name('expert-advice.index');
+Route::get('/loi-khuyen-chuyen-gia/{permalink}','ExpertAdviceController@getDetail')->name('expert-advice.getDetail');
 
-Route::get('/du-toan-chi-phi.html','CostEstimatesController@index');
-Route::get('/dang-ky-lai-thu.html','RegisterTestDriveController@index');
+Route::get('/thu-vien/{permalink}.html','CarLibraryController@getDetail')->name('library.getDetail');
+Route::get('/ngoai-that/{permalink}.html','CarExteriorsController@getDetail')->name('exteriors.getDetail');
+Route::get('/noi-that/{permalink}.html','CarFurnituresController@getDetail')->name('furnitures.getDetail');
+
+Route::get('/du-toan-chi-phi','CostEstimatesController@index');
+Route::get('/dang-ky-lai-thu','RegisterTestDriveController@index')->name('test-drive.index');
 
 Route::get('/{type}/{permalink}.html','CarController@getFunctions');
 Route::get('/tinh-nang/{type}/{permalink}','CarController@getFunctionsMb');
 
 Route::get('/so-sanh','CarCompareController@index');
+
+Route::get('/tai-file','DownloadFileController@index')->name('download.index');
 
 
 
@@ -216,7 +220,6 @@ Route::group(['prefix'=>'cp', 'middleware'=>'CPLogin'], function(){
 		Route::post('create','NewsController@postCreate');
 		Route::get('edit/{id}','NewsController@getEdit');
 		Route::post('edit/{id}','NewsController@postEdit');
-		Route::get('delete/{id}','NewsController@getDelete');
 	});
 
 	Route::group(['prefix'=>'salesmen'], function(){
@@ -239,20 +242,51 @@ Route::group(['prefix'=>'cp', 'middleware'=>'CPLogin'], function(){
 
 	Route::group(['prefix'=>'service'], function(){
 		Route::group(['prefix'=>'warranty-policy'], function(){
-			Route::get('','Service\WarrantyPolicyController@getList');
-			Route::get('create','Service\WarrantyPolicyController@getCreate');
-			Route::post('create','Service\WarrantyPolicyController@postCreate');
-			Route::get('edit/{id}','Service\WarrantyPolicyController@getEdit');
-			Route::post('edit/{id}','Service\WarrantyPolicyController@postEdit');
-			Route::get('delete/{id}','Service\WarrantyPolicyController@getDelete');
+			Route::get('','Service\WarrantyPolicyController@getList')->name('service.warranty-policy.getList');
+			Route::get('create','Service\WarrantyPolicyController@getCreate')->name('service.warranty-policy.getCreate');
+			Route::post('create','Service\WarrantyPolicyController@postCreate')->name('service.warranty-policy.postCreate');
+			Route::get('edit/{id}','Service\WarrantyPolicyController@getEdit')->name('service.warranty-policy.getEdit');
+			Route::post('edit/{id}','Service\WarrantyPolicyController@postEdit')->name('service.warranty-policy.postEdit');
 		});
+
+		Route::group(['prefix'=>'maintenance-service'], function(){
+			Route::get('','Service\MaintenanceServiceController@getList')->name('service.maintenance-service.getList');
+			Route::get('create','Service\MaintenanceServiceController@getCreate')->name('service.maintenance-service.getCreate');
+			Route::post('create','Service\MaintenanceServiceController@postCreate')->name('service.maintenance-service.postCreate');
+			Route::get('edit/{id}','Service\MaintenanceServiceController@getEdit')->name('service.maintenance-service.getEdit');
+			Route::post('edit/{id}','Service\MaintenanceServiceController@postEdit')->name('service.maintenance-service.postEdit');
+		});
+
+		Route::group(['prefix'=>'repair-service'], function(){
+			Route::get('','Service\RepairServiceController@getList')->name('service.repair-service.getList');
+			Route::get('create','Service\RepairServiceController@getCreate')->name('service.repair-service.getCreate');
+			Route::post('create','Service\RepairServiceController@postCreate')->name('service.repair-service.postCreate');
+			Route::get('edit/{id}','Service\RepairServiceController@getEdit')->name('service.repair-service.getEdit');
+			Route::post('edit/{id}','Service\RepairServiceController@postEdit')->name('service.repair-service.postEdit');
+		});
+
+		Route::group(['prefix'=>'free-test-program'], function(){
+			Route::get('','Service\FreeTestProgramController@getList')->name('service.free-test-program.getList');
+			Route::get('create','Service\FreeTestProgramController@getCreate')->name('service.free-test-program.getCreate');
+			Route::post('create','Service\FreeTestProgramController@postCreate')->name('service.free-test-program.postCreate');
+			Route::get('edit/{id}','Service\FreeTestProgramController@getEdit')->name('service.free-test-program.getEdit');
+			Route::post('edit/{id}','Service\FreeTestProgramController@postEdit')->name('service.free-test-program.postEdit');
+		});
+
+		Route::group(['prefix'=>'summon-program'], function(){
+			Route::get('','Service\SummonProgramController@getList')->name('service.summon-program.getList');
+			Route::get('create','Service\SummonProgramController@getCreate')->name('service.summon-program.getCreate');
+			Route::post('create','Service\SummonProgramController@postCreate')->name('service.summon-program.postCreate');
+			Route::get('edit/{id}','Service\SummonProgramController@getEdit')->name('service.summon-program.getEdit');
+			Route::post('edit/{id}','Service\SummonProgramController@postEdit')->name('service.summon-program.postEdit');
+		});
+
 		Route::group(['prefix'=>'accessary'], function(){
-			Route::get('','Service\GenuineAccessaryController@getList');
-			Route::get('create','Service\GenuineAccessaryController@getCreate');
-			Route::post('create','Service\GenuineAccessaryController@postCreate');
-			Route::get('edit/{id}','Service\GenuineAccessaryController@getEdit');
-			Route::post('edit/{id}','Service\GenuineAccessaryController@postEdit');
-			Route::get('delete/{id}','Service\GenuineAccessaryController@getDelete');
+			Route::get('','Service\GenuineAccessaryController@getList')->name('service.genuine-accessary.getList');
+			Route::get('create','Service\GenuineAccessaryController@getCreate')->name('service.genuine-accessary.getCreate');
+			Route::post('create','Service\GenuineAccessaryController@postCreate')->name('service.genuine-accessary.postCreate');
+			Route::get('edit/{id}','Service\GenuineAccessaryController@getEdit')->name('service.genuine-accessary.getEdit');
+			Route::post('edit/{id}','Service\GenuineAccessaryController@postEdit')->name('service.genuine-accessary.postEdit');
 
 			Route::group(['prefix'=>'group'], function(){
 				Route::get('','Service\GenuineAccessaryGroupController@getList');
@@ -263,12 +297,12 @@ Route::group(['prefix'=>'cp', 'middleware'=>'CPLogin'], function(){
 				Route::get('delete/{id}','Service\GenuineAccessaryGroupController@getDelete');
 			});
 			Route::group(['prefix'=>'details'], function(){
-				Route::get('','Service\GenuineAccessaryDetailController@getList');
-				Route::get('create','Service\GenuineAccessaryDetailController@getCreate');
-				Route::post('create','Service\GenuineAccessaryDetailController@postCreate');
-				Route::get('edit/{id}','Service\GenuineAccessaryDetailController@getEdit');
-				Route::post('edit/{id}','Service\GenuineAccessaryDetailController@postEdit');
-				Route::get('delete/{id}','Service\GenuineAccessaryDetailController@getDelete');
+				Route::get('','Service\GenuineAccessaryDetailController@getList')->name('service.genuine-accessary-detail.getList');
+				Route::get('create','Service\GenuineAccessaryDetailController@getCreateAll')->name('service.genuine-accessary-detail.getCreateAll');
+				Route::get('create/{id}','Service\GenuineAccessaryDetailController@getCreate')->name('service.genuine-accessary-detail.getCreate');
+				Route::post('create','Service\GenuineAccessaryDetailController@postCreate')->name('service.genuine-accessary-detail.postCreate');
+				Route::get('edit/{id}','Service\GenuineAccessaryDetailController@getEdit')->name('service.genuine-accessary-detail.getEdit');
+				Route::post('edit/{id}','Service\GenuineAccessaryDetailController@postEdit')->name('service.genuine-accessary-detail.postEdit');
 			});
 		});
 
@@ -360,12 +394,12 @@ Route::group(['prefix'=>'cp', 'middleware'=>'CPLogin'], function(){
 
 
 	Route::group(['prefix'=>'user'], function(){
-		Route::get('list','UserController@getList');
-		Route::get('add','UserController@getAdd');
-		Route::post('add','UserController@postAdd');
-		Route::get('edit/{id}','UserController@getEdit');
-		Route::post('edit/{id}','UserController@postEdit');
-		Route::get('delete/{id}','UserController@getDelete');
+		Route::get('','UserController@getList')->name('user.getList');
+		Route::get('create','UserController@getCreate')->name('user.getCreate');
+		Route::post('create','UserController@postCreate')->name('user.postCreate');
+		Route::get('edit/{id}','UserController@getEdit')->name('user.getEdit');
+		Route::post('edit/{id}','UserController@postEdit')->name('user.postEdit');
+		Route::get('delete/{id}','UserController@getDelete')->name('user.getDelete');
 	});
 
 });

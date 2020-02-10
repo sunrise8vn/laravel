@@ -64,7 +64,7 @@
             </div>
         </div>
         <p class="view-more-btn hide-mb">
-            <a class="changelink" data-href="/thu-vien/{{$car->permalink}}.html" href="/thu-vien/{{$car->permalink}}.html"><span>Xem thêm...</span></a>
+            <a class="changelink" data-href="{{ route('library.getDetail', $car->permalink) }}" href="{{ route('library.getDetail', $car->permalink) }}"><span>Xem thêm...</span></a>
         </p>
     </div>
 </div>

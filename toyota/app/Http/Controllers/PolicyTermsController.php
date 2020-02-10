@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\CarCategory;
 use App\Cars;
+use App\OtherInfoCar;
 use App\PolicyTerms;
 use Image;
 use Illuminate\Support\Facades\Storage;
@@ -20,9 +21,11 @@ class PolicyTermsController extends Controller
     {
         $carCategory = CarCategory::where('isDeleted', 0)->orderBy('id', 'desc')->get();
         $carDetail = Cars::where('isDeleted', 0)->orderBy('id', 'desc')->get();
+        $otherInfoCar = OtherInfoCar::where('isDeleted', 0)->orderBy('id', 'asc')->get();
+        
         $policyTerms = PolicyTerms::where('isDeleted', 0)->orderBy('id', 'desc')->first();
 
-        return view('policy-terms',['carCategory'=>$carCategory, 'carDetail'=>$carDetail, 'policyTerms'=>$policyTerms]);
+        return view('policy-terms',['carCategory'=>$carCategory, 'carDetail'=>$carDetail, 'otherInfoCar'=>$otherInfoCar, 'policyTerms'=>$policyTerms]);
     }
 
     public function getEdit()

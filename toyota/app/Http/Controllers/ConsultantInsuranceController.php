@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\CarCategory;
 use App\Cars;
+use App\OtherInfoCar;
 
 class ConsultantInsuranceController extends Controller
 {
@@ -12,7 +13,8 @@ class ConsultantInsuranceController extends Controller
     {
         $carCategory = CarCategory::where('isDeleted', 0)->orderBy('id', 'desc')->get();
         $carDetail = Cars::where('isDeleted', 0)->orderBy('id', 'desc')->get();
+        $otherInfoCar = OtherInfoCar::where('isDeleted', 0)->orderBy('id', 'asc')->get();
 
-        return view('consultant-insurance',['carCategory'=>$carCategory, 'carDetail'=>$carDetail]);
+        return view('consultant-insurance',['carCategory'=>$carCategory, 'carDetail'=>$carDetail, 'otherInfoCar'=>$otherInfoCar]);
     }
 }

@@ -29,24 +29,7 @@
     </div>
     <div id="content">
         <div class="page_productdt">
-            <!--Menu-->
-            <div class="menu-detail menu-detail-text">
-                <div class="target target1">
-                    <div class="container">
-                        <ul class="table-of-contents clearfix animated fadeInUpShort delay-250 go">
-                            <li><a href="#sec_dt_01"><img src="/Content/images/detail_icon_s_menu_01.png" class="smallimg"><span class="text-link">Tổng quan</span></a></li>
-                            <li><a href="#sec_dt_03"><img src="/Content/images/detail_icon_s_menu_04.png" class="smallimg"><span class="text-link">Thư viện</span></a></li>
-                            <li><a href="#sec_dt_04"><img src="/Content/images/detail_icon_s_menu_02.png" class="smallimg"><span class="text-link">Ngoại thất</span></a></li>
-                            <li><a href="#sec_dt_05"><img src="/Content/images/detail_icon_s_menu_03.png" class="smallimg"><span class="text-link">Nội thất</span></a></li>
-                            <li><a href="#sec_dt_06"><img src="/Content/images/detail_icon_s_menu_05.png" class="smallimg"><span class="text-link">Tính năng</span></a></li>
-                            <li><a href="#sec_dt_09"><img src="/Content/images/detail_icon_s_menu_09.png" class="smallimg"><span class="text-link">Phụ kiện</span></a></li>
-                            <li><a href="#sec_dt_07"><img src="/Content/images/detail_icon_s_menu_06.png" class="smallimg"><span class="text-link">Thông số kỹ thuật</span></a></li>
-                            {{-- <li><a href="#sec_dt_08"><img src="/Content/images/detail_icon_s_menu_08.png" class="smallimg"><span class="text-link">Tải catalogue</span></a></li> --}}
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!--End of Menu-->
+            
             <!--Mo ta xe-->
             <div id="sec_dt_01" class="scrollspy">
                 <div class="container">
@@ -54,7 +37,6 @@
                         <div class="col s12 m5 l5">
                             <h1 class="name_dt animated fadeInDownShort go">
                                 <span id="spTitleCar">{{$car->name}}</span>
-
                             </h1>
                             <input type="hidden" id="hdCatId" value="800" />
                             <input type="hidden" id="hdCarId" value="3805" />
@@ -71,9 +53,14 @@
                                 <br />
                                 <span>• Xuất xứ : </span><span>{{$car->origin}}</span>
                                 <br />
-                                <span>• Thông tin khác: </span>
-                                <br />
-                                <span>{!!$car->info!!}</span>
+                                <span>• Thông tin khác:
+                                    @php($otherInfo = $otherInfoCar->where('car_id', $car->id))
+                                    @if(!empty($otherInfo))
+                                        @foreach($otherInfo as $item)
+                                            <br><span>+ {{$item->content}} </span>
+                                        @endforeach
+                                    @endif
+                                </span>
                             </p>
                             <div class="rowbtn hide-mb" style="margin-top: 30px;">
                                 <div class="btn_wrap" style="margin-right: 10px" id="btnTestDrive">

@@ -71,69 +71,78 @@
                                 {{session('notification')}}
                             </div>
                         @endif
+
+                        @if(session('error'))
+                            <div class="alert alert-danger">
+                                {{session('error')}}
+                            </div>
+                        @endif
                     </div>
                 </div>
                 <div class="box-body">
-            		<div class="col-md-3">
-                        <div class="form-group">
-                            <button type="button" class="btn btn-block btn-success btn-flat" onclick="openPage('/cp/news')">Quay về danh sách</button>
+                    <div class="row">
+                		<div class="col-md-3">
+                            <div class="form-group">
+                                <button type="button" class="btn btn-block btn-success btn-flat" onclick="openPage('/cp/news')">Quay về danh sách</button>
+                            </div>
                         </div>
                     </div>
-	            	<form action="cp/news/edit/{{$news->id}}" method="POST" enctype="multipart/form-data">
-	                    @csrf
-                        <div class="col-md-12">
-                            <div class="form-group">
-                              	<label>Danh mục tin tức</label>
-                              	<select class="form-control" name='newsCategories'>
-                              		@foreach($newsCategories as $newsCate)
-	                                <option 
-	                                  @if($news->news_cate_id == $newsCate->id)
-	                                  {{"selected"}}
-	                                  @endif
-	                                  value="{{$newsCate->id}}">{{$newsCate->title}}</option>
-		                            @endforeach
-                              	</select>
-                          </div>
-                        </div>
+                    <div class="row">
+    	            	<form action="cp/news/edit/{{$news->id}}" method="POST" enctype="multipart/form-data">
+    	                    @csrf
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                  	<label>Danh mục tin tức</label>
+                                  	<select class="form-control" name='newsCategories'>
+                                  		@foreach($newsCategories as $newsCate)
+    	                                <option 
+    	                                  @if($news->news_cate_id == $newsCate->id)
+    	                                  {{"selected"}}
+    	                                  @endif
+    	                                  value="{{$newsCate->id}}">{{$newsCate->title}}</option>
+    		                            @endforeach
+                                  	</select>
+                              </div>
+                            </div>
 
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>Tiêu đề</label>
-                                <input type="text" class="form-control" name="title" value="{{$news->title}}" required placeholder="Nhập tiêu đề" />
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Tiêu đề</label>
+                                    <input type="text" class="form-control" name="title" value="{{$news->title}}" required placeholder="Nhập tiêu đề" />
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>Tóm tắt</label>
-                                <input type="text" class="form-control" name="summary" value="{{$news->summary}}"  placeholder="Nhập tóm tắt" />
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Ảnh dại diện</label>
+                                    <input type="hidden" class="form-control" id="avatar" name="avatar" value="{{$news->avatar}}" />
+                                    <br>
+                                    <img id="avatar_temp" class="avatar" name="avatar_temp" src="/data/news/{{$news->avatar}}" >
+                                    <br><br>
+                                    <input type="file" id="avatar_image_temp" name="avatar_image_temp" onchange="uploadImageBase64(this, '#avatar_temp');readURLAvartar(this);">
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>Nội dung</label>
-                                <textarea name="content" style="width: 100%; height: 400px;">{{$news->content}}</textarea>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Tóm tắt</label>
+                                    <input type="text" class="form-control" name="summary" value="{{$news->summary}}"  placeholder="Nhập tóm tắt" />
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>Ảnh dại diện</label>
-                                <input type="hidden" class="form-control" id="avatar" name="avatar" value="{{$news->avatar}}" />
-                                <br>
-                                <img id="avatar_temp" class="avatar" name="avatar_temp" src="/data/news/{{$news->avatar}}" >
-                                <br><br>
-                                <input type="file" id="avatar_image_temp" name="avatar_image_temp" onchange="uploadImageBase64(this, '#avatar_temp');readURLAvartar(this);">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Nội dung</label>
+                                    <textarea name="content" style="width: 100%; height: 400px;">{{$news->content}}</textarea>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="col-md-12">
-                            <div class="col-md-6" style=" padding: 10px 15px 20px 0;">
-                                <button type="submit" class="btn btn-block btn-info btn-flat">
-                                    <i class="fa fa-pencil-square-o fa-fw"></i> Cập nhật bài viết
-                                </button>
+                            <div class="col-md-12">
+                                <div class="col-md-6" style=" padding: 10px 15px 20px 0;">
+                                    <button type="submit" class="btn btn-block btn-info btn-flat">
+                                        <i class="fa fa-pencil-square-o fa-fw"></i> Cập nhật bài viết
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-	                    
-	                </form>
+    	                </form>
+                    </div>
                 </div>
                 <!-- /.box-body -->
           </div>

@@ -68,7 +68,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Mô tả</label>
-                                    <textarea name="description" style="width: 100%; height: 70px; padding: 10px;"></textarea>
+                                    <textarea name="description" maxlength="1000" style="width: 100%; height: 70px; max-height: 150px; padding: 10px;"></textarea>
                                 </div>
                             </div>
 
@@ -166,7 +166,7 @@
 
                                 <div class="form-group">
                                     <label>Mô tả</label>
-                                    <textarea name="descriptionModal" style="width: 100%; height: 150px; padding: 10px;"></textarea>
+                                    <textarea name="descriptionModal" maxlength="1000" style="width: 100%; height: 150px;max-height: 250px; padding: 10px;"></textarea>
                                 </div>
                             </div>
 

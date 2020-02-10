@@ -57,19 +57,21 @@
 				              </tr>
 				            </thead>
 				            <tbody>
-				              	@foreach($news as $n)
-					              <tr>
-					                <td class="center">{{$n->id}}</td>
-					                <td class="center">{{$n->title}}</td>
-					                <td class="center">{{$n->summary}}</td>
+				              	@foreach($news as $item)
+					              <tr id="tr{{$item->id}}">
+					                <td class="center">{{$item->id}}</td>
+					                <td class="center">{{$item->title}}</td>
+					                <td class="center">{{$item->summary}}</td>
 					                <td class="center">
-                                        <img class="lazy" alt="{{$n->title}}" src="/data/news/{{$n->avatar}}" style="max-width: 300px; max-height: 125px;">
+                                        <img class="lazy" alt="{{$item->title}}" src="/data/news/{{$item->avatar}}" style="max-width: 300px; max-height: 125px;">
                                     </td>
                                     <td class="center" style="min-width: 50px;">
-                                    	<a href="/cp/news/edit/{{$n->id}}"><i class="fa fa-pencil-square-o fa-fw"></i> Sửa</a>
+                                    	<a href="/cp/news/edit/{{$item->id}}"><i class="fa fa-pencil-square-o fa-fw"></i> Sửa</a>
                                     </td>
                                     <td class="center" style="min-width: 50px;">
-                                    	<a href="/cp/news/delete/{{$n->id}}"><i class="fa fa-trash-o fa-fw"></i> Xóa</a>
+                                        <a onclick="deleteConfirm({{$item->id}});">
+                                            <i class="fa fa-trash-o fa-fw"></i> Xóa
+                                        </a>
                                     </td>
 					              </tr>
 				              	@endforeach
@@ -89,5 +91,45 @@
 
 </div>
 
+@endsection
 
+@section('script')
+    <script type="text/javascript">
+        function deleteConfirm(id) {
+            Swal.fire({
+              title: 'Bạn chắc chắn muốn xóa bài viết đã chọn?',
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#d33',
+              cancelButtonColor: '#3085d6',
+              confirmButtonText: 'Vâng, xóa nó đi!',
+              cancelButtonText: 'Hủy',
+            }).then((result) => {
+              if (result.value) {
+                $.ajax({
+                    type: "get",
+                    url: "{{ route('news.getDelete') }}",
+                    data : {
+                        id : id,
+                    },
+                    success() {
+                        Swal.fire(
+                          'Thông báo',
+                          'Xóa bài viết tin tức thành công.',
+                          'success'
+                        );
+                        $("#tr"+id).remove();
+                    },
+                    error() { 
+                        Swal.fire({
+                          icon: 'error',
+                          title: 'Cảnh báo',
+                          text: 'Đã xảy ra lỗi!',
+                        })
+                    }
+                });
+              }
+            })
+        }
+    </script>
 @endsection

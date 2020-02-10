@@ -277,11 +277,11 @@
                                 <div class="inner">
                                   <div class="sm_checkbox">
                                     <input type="checkbox" class="checkCarToolCompare" data-url="{{$item->permalink}}"
-                                           data-image="/data/car/avatar/{{$item->id}}/{{$item->avatar}}?width=500" data-caturl="{{$item->CarCategory->name}}" data-catId="{{800 + $item->CarCategory->id}}" data-name="{{$item->name}}" data-price='{{$item->price}}' data-idCar="{{$item->id}}" id="checkbox-{{$item->id}}">
+                                           data-image="/data/car/thumb/{{$item->id}}/{{$item->avatar}}?width=500" data-caturl="{{$item->CarCategory->name}}" data-catId="{{800 + $item->CarCategory->id}}" data-name="{{$item->name}}" data-price='{{$item->price}}' data-idCar="{{$item->id}}" id="checkbox-{{$item->id}}">
                                     <label for="checkbox-{{$item->id}}">
 
                                       <span class="img">
-                                        <img src='/data/car/avatar/{{$item->id}}/{{$item->avatar}}' />
+                                        <img src='/data/car/thumb/{{$item->id}}/{{$item->avatar}}' />
                                       </span>
                                       <span class="txt">
                                         <span class="txt1"><span class="check"></span></span>

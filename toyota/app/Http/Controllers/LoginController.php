@@ -26,18 +26,22 @@ class LoginController extends Controller
     {
         $this->validate($request, 
             [
-                'email' => 'required|email',
+                'email' => 'required',
                 'password' => 'required',
             ],
             [
                 'email.required' => 'Email không được để trống',
-                'email.email' => 'Email chưa đúng định dạng',
+                // 'email.email' => 'Email chưa đúng định dạng',
                 'password.required' => 'Mật khẩu không được để trống',
             ]);
         $remember = $request->has('remember') ? true : false;
 
         if(Auth::attempt(['email'=>$request->email,'password'=>$request->password, 'role'=>0], $remember))
         {
+            $request->Session()->put('UserLogin',$request->email);
+            return redirect('cp');
+        }
+        elseif (Auth::attempt(['username'=>$request->email,'password'=>$request->password, 'role'=>0], $remember)) {
             $request->Session()->put('UserLogin',$request->email);
             return redirect('cp');
         }

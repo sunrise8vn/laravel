@@ -42,10 +42,6 @@
 	                        		<a href="#tab0{{$exAdGrp->id}}" data-right="False" class=''>{{$exAdGrp->title}}</a>
 	                        	</li>
                         	@endforeach
-                           {{--  <li class="tab inline"><a href="#tab01" data-right="False" class=''>Hướng dẫn sử dụng xe</a></li>
-                            <li class="tab inline"><a href="#tab02" data-right="False" class=''>Những ch&#250; &#253; tăng tuổi thọ lốp</a></li>
-                            <li class="tab inline"><a href="#tab03" data-right="False" class=''>Những ch&#250; &#253; tăng tuổi thọ ắc quy</a></li>
-                            <li class="tab inline"><a href="#tab04" data-right="False" class=''>Hướng dẫn l&#225;i xe an to&#224;n</a></li> --}}
                         </ul>
                         @foreach($expertAdviceGroup as $exAdGrp)
 	                        <div id="tab0{{$exAdGrp->id}}" class="content-tab">
@@ -55,13 +51,13 @@
 		                                <li class="item col s3">
 		                                    <div class="inner">
 		                                        <p class="img">
-		                                            <a href="/loi-khuyen-chuyen-gia/{{$exAd->permalink}}.html">
+		                                            <a href="{{ route('expert-advice.getDetail', $exAd->permalink) }}">
 		                                                <img class="lazy" src="/data/expert-advice/{{$exAd->avatar}}?w=278&amp;h=168&amp;mode=crop" data-original='/data/expert-advice/{{$exAd->avatar}}?w=278&h=168&mode=crop' alt="{{$exAd->title}}">
 		                                            </a>
 		                                        </p>
 		                                        <div class="txt">
 		                                            <h3 class="title">
-		                                                <a href="/loi-khuyen-chuyen-gia/{{$exAd->permalink}}.html" title="{{$exAd->title}}" alt="{{$exAd->title}}">
+		                                                <a href="{{ route('expert-advice.getDetail', $exAd->permalink) }}" title="{{$exAd->title}}" alt="{{$exAd->title}}">
 		                                                    {{$exAd->title}}
 		                                                </a>
 		                                            </h3>

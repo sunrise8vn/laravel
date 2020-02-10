@@ -7,6 +7,7 @@ use App\Http\Requests;
 use App\Http\Requests\CarRequest;
 use App\CarCategory;
 use App\Cars;
+use App\OtherInfoCar;
 use Image;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
@@ -20,7 +21,8 @@ class CarCompareController extends Controller
     {
         $carCategory = CarCategory::where('isDeleted', 0)->orderBy('id', 'desc')->get();
         $carDetail = Cars::where('isDeleted', 0)->get();
+        $otherInfoCar = OtherInfoCar::where('isDeleted', 0)->orderBy('id', 'asc')->get();
 
-        return view('compare',['carCategory'=>$carCategory, 'carDetail'=>$carDetail]);
+        return view('compare',['carCategory'=>$carCategory, 'carDetail'=>$carDetail, 'otherInfoCar'=>$otherInfoCar]);
     }
 }

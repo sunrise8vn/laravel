@@ -67,7 +67,6 @@ class CarColorController extends Controller
                     $avatar = $avatarNonExt ."_". $random .".".$extension;
                 }
             }
-
             
             $file->move($destinationPath, $avatar);
             $carcolor->avatar = $avatar;                

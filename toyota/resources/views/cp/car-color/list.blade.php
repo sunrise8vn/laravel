@@ -39,12 +39,12 @@
                     </div>
                 </div>
                 <div class="box-body">
-            		<div class="col-md-3">
+            		  <div class="col-md-3">
                         <div class="form-group">
                             <button type="submit" class="btn btn-block btn-info btn-flat" onclick="openPage('/cp/car-color/create')">Thêm màu xe</button>
                         </div>
                     </div>
-                    <div class="col-md-12">
+                  <div class="col-md-12">
 		            	<table id="example1" class="table table-bordered table-striped">
 				            <thead>
 				              <tr>
@@ -67,17 +67,16 @@
 					                </td>
 					                
 					                <td class="center">
-		                                <div style="text-align: center; display: inline-block;">
-		                                    {{-- <img class="lazy" alt="{{$cc->name}}" src="/data/car/color/{{$cc->Cars->id}}/{{$cc->avatar}}" style="max-width: 100%; max-height: 80px; min-height: 50px; min-width: 120px;"> --}}
-                                            <img class="lazy zoom" data-car="{{$cc->car_id}}" data-avatar="{{$cc->avatar}}" onclick="zoomAvatar();" alt="{{$cc->avatar}}" src="/data/car/color/{{$cc->car_id}}/{{$cc->avatar}}" style="max-width: 100%; max-height: 80px; min-height: 50px; min-width: 120px;">
-		                                </div>
-		                            </td>
-		                            <td class="center edit">
-	                                    <a href="/cp/car-color/edit/{{$cc->id}}"><i class="fa fa-pencil-square-o fa-fw"></i>Sửa</a>
-	                                </td>
-                                    <td class="center delete">
-                                        <a onclick="deleteConfirm({{$cc->id}});"><i class="fa fa-trash-o fa-fw"></i>Xóa</a>
-                                    </td>
+                              <div style="text-align: center; display: inline-block;">
+                                  <img class="lazy zoom" data-car="{{$cc->car_id}}" data-avatar="{{$cc->avatar}}" onclick="zoomAvatar();" alt="{{$cc->avatar}}" src="/data/car/color/{{$cc->car_id}}/{{$cc->avatar}}" style="max-width: 100%; max-height: 80px; min-height: 50px; min-width: 120px;">
+                              </div>
+                            </td>
+                          <td class="center edit">
+                              <a href="/cp/car-color/edit/{{$cc->id}}"><i class="fa fa-pencil-square-o fa-fw"></i>Sửa</a>
+                          </td>
+                          <td class="center delete">
+                                <a onclick="deleteConfirm({{$cc->id}});"><i class="fa fa-trash-o fa-fw"></i>Xóa</a>
+                          </td>
 					              </tr>
 				              	@endforeach
 				            </tbody>

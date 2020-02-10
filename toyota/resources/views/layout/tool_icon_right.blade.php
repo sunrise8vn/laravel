@@ -18,8 +18,8 @@
             <span><a href="/dang-ky-dich-vu.chn">Đặt lịch hẹn dịch vụ</a></span>
         </p>
         <p class="item">
-            <a href="/tai-file/index27fe.html?url=/Content/download/bang-gia-xe-25092019.pdf" target="_blank"><i>Tải<br />bảng giá</i><img src="/Content/images/tool_icon_right_08.png" alt="Tải bảng giá"></a>
-            <span><a href="/tai-file/index27fe.html?url=/Content/download/bang-gia-xe-25092019.pdf">Tải bảng giá</a></span>
+            <a href="{{ route('download.index') }}" target="_blank"><i>Tải<br />bảng giá</i><img src="/Content/images/tool_icon_right_08.png" alt="Tải bảng giá"></a>
+            <span><a href="{{ route('download.index') }}">Tải bảng giá</a></span>
         </p>
     </div>
 </div>

@@ -60,6 +60,11 @@ class Cars extends Model
         return $this->hasMany('App\CarFunction','car_id','id');
     }
 
+    public function OtherInfoCar()
+    {
+        return $this->hasMany('App\OtherInfoCar','car_id','id');
+    }
+
     
     // Specifications
     public function SpecEngineFrame()
@@ -100,5 +105,78 @@ class Cars extends Model
     public function SpecPassiveSafety()
     {
         return $this->hasOne('App\Spec\SpecPassiveSafety','car_id','id');
+    }
+
+    public function scopeCar_Cate($query, $request)
+    {
+        if ($request->has('car_cate')) {
+            if(isset($request->car_cate)) {
+                $query->whereIN('car_cate_id', explode(',', $request->car_cate));
+            }
+        }
+
+        return $query;
+    }
+
+    public function scopePrice($query, $request)
+    {
+        if ($request->has('price')) {
+            if(isset($request->price)) {
+                $price = explode('-', $request->price);
+                if(count($price) == 2){
+                    $query->whereBetween('price', [$price[0], $price[1]]);    
+                } 
+                else {
+                    $query->where('price', '>', $price[0]);  
+                }
+                
+            }
+        }
+
+        return $query;
+    }
+
+    public function scopeFuel($query, $request)
+    {
+        if ($request->has('fuel')) {
+            if(isset($request->fuel)) {
+                $query->whereIN('fuel', explode(',', $request->fuel));
+            }
+        }
+
+        return $query;
+    }
+
+    public function scopeSeat($query, $request)
+    {
+        if ($request->has('seat')) {
+            if(isset($request->seat)) {
+                $query->whereIN('number_of_seats', explode(',', $request->seat));
+            }
+        }
+
+        return $query;
+    }
+
+    public function scopeDesign($query, $request)
+    {
+        if ($request->has('design')) {
+            if(isset($request->design)) {
+                $query->whereIN('design', explode(',', $request->design));    
+            }
+        }
+
+        return $query;
+    }
+
+    public function scopeOrigin($query, $request)
+    {
+        if ($request->has('origin')) {
+            if(isset($request->origin)) {
+                $query->whereIN('origin', explode(',', $request->origin));    
+            }
+        }
+
+        return $query;
     }
 }

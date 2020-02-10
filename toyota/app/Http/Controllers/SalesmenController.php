@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\CarCategory;
 use App\Cars;
+use App\OtherInfoCar;
 use App\Salesmen;
 use App\SalesmenGroup;
 use Image;
@@ -83,9 +84,11 @@ class SalesmenController extends Controller
     {
         $carCategory = CarCategory::where('isDeleted', 0)->orderBy('id', 'desc')->get();
         $carDetail = Cars::where('isDeleted', 0)->orderBy('id', 'desc')->get();
+        $otherInfoCar = OtherInfoCar::where('isDeleted', 0)->orderBy('id', 'asc')->get();
+        
         $salesmenGroup = SalesmenGroup::where('isDeleted', 0)->orderBy('id', 'asc')->get();
         $salesmen = Salesmen::where('isDeleted', 0)->orderBy('updated_at', 'desc')->get();
-        return view('salesmen',['carCategory'=>$carCategory, 'carDetail'=>$carDetail, 'salesmenGroup'=>$salesmenGroup, 'salesmen'=>$salesmen, 'permalink'=>$permalink]);
+        return view('salesmen',['carCategory'=>$carCategory, 'carDetail'=>$carDetail, 'otherInfoCar'=>$otherInfoCar, 'salesmenGroup'=>$salesmenGroup, 'salesmen'=>$salesmen, 'permalink'=>$permalink]);
     }
 
     public function getEdit($id)

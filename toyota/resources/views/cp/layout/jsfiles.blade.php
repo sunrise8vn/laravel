@@ -2,6 +2,8 @@
 <script src="admin_asset/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="admin_asset/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- Select2 -->
+<script src="admin_asset/bower_components/select2/dist/js/select2.full.min.js"></script>
 <!-- DataTables -->
 <script src="admin_asset/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="admin_asset/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>

@@ -68,12 +68,6 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Mã màu RGB</label>
-                                    {{-- <div class="input-group my-colorpicker2 colorpicker-element">
-                                        <input type="text" class="form-control" name="color">
-                                        <div class="input-group-addon">
-                                            <i></i>
-                                        </div>
-                                    </div> --}}
                                     <div class="input-group my-colorpicker2 colorpicker-element">
                                       <input type="text" class="form-control">
                                       <div class="input-group-addon">

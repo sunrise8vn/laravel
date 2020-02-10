@@ -14,7 +14,7 @@
                 <div class="inner_item_sm">
                     <div class="img">
                         <a class="changelink" data-href="/xe/{{$anoCars->permalink}}?spy=sec_dt_01">
-                            <img src="/data/car/avatar/{{$anoCars->id}}/{{$anoCars->avatar}}" class="lazy" data-original="/data/car/avatar/{{$anoCars->id}}/{{$anoCars->avatar}}" alt="{{$anoCars->name}}">
+                            <img src="/data/car/thumb/{{$anoCars->id}}/{{$anoCars->avatar}}" class="lazy" data-original="/data/car/thumb/{{$anoCars->id}}/{{$anoCars->avatar}}" alt="{{$anoCars->name}}">
                         </a>
                     </div>
                     <div class="txt">

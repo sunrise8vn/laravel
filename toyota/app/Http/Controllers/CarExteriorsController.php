@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use App\CarCategory;
 use App\Cars;
+use App\OtherInfoCar;
 use App\CarExteriors;
 use Image;
 use Illuminate\Support\Facades\Storage;
@@ -15,6 +17,23 @@ use Illuminate\Support\Str;
 
 class CarExteriorsController extends Controller
 {
+    public function getDetail($permalink) 
+    {
+        $carCategory = CarCategory::where('isDeleted', 0)->orderBy('id', 'desc')->get();
+        $carDetail = Cars::where('isDeleted', 0)->orderBy('id', 'desc')->get();
+        $otherInfoCar = OtherInfoCar::where('isDeleted', 0)->orderBy('id', 'asc')->get();
+        
+        $car = Cars::where('permalink', $permalink)->where('isDeleted', 0)->first();
+        if($car != null) {
+            $car_id = $car->id;
+            $carExteriors = CarExteriors::where('car_id', $car_id)->where('isDeleted', 0)->orderBy('id', 'desc')->get();
+            return view('exterior', ['carCategory'=>$carCategory, 'carDetail'=>$carDetail, 'otherInfoCar'=>$otherInfoCar, 'car'=>$car, 'carExteriors'=>$carExteriors]);
+        }
+        else {
+            return redirect('/');
+        }
+    }
+
     public function getList()
     {
         $cars = Cars::where('isDeleted', 0)->orderBy('id', 'desc')->get();
@@ -32,11 +51,13 @@ class CarExteriorsController extends Controller
     {
         $this->validate($request,
             [
-                'avatar_image_temp' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+                'avatar_image_temp' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'description' => 'max:2048'
             ],
             [
-                'avatar_image_temp.required'=>'Bạn chưa chọn hình ảnh',
-                'avatar_image_temp.max'=> 'Hình ảnh phải có kích thước nhỏ hơn 2048 KB',
+                'avatar_image_temp.required' => 'Bạn chưa chọn hình ảnh',
+                'avatar_image_temp.max' => 'Hình ảnh phải có kích thước nhỏ hơn 2048 KB',
+                'description.max' => 'Nội dung có độ dài tối đa 1000 ký tự'
             ]);
 
         $carExteriors = new CarExteriors;
@@ -78,6 +99,14 @@ class CarExteriorsController extends Controller
 
     public function postEdit(Request $request)
     {
+        $this->validate($request,
+            [
+                'description' => 'max:2048'
+            ],
+            [
+                'description.max' => 'Nội dung có độ dài tối đa 1000 ký tự'
+            ]);
+
         $id = $request->idModal;
         $carExteriors = CarExteriors::find($id);
         $car_id = $request->carModal;
@@ -87,6 +116,15 @@ class CarExteriorsController extends Controller
 
         if($request->hasFile('avatar_image_tempModal'))
         {
+            $this->validate($request,
+                [
+                    'avatar_image_tempModal' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+                ],
+                [
+                    'avatar_image_tempModal.required' => 'Bạn chưa chọn hình ảnh',
+                    'avatar_image_tempModal.max' => 'Hình ảnh phải có kích thước nhỏ hơn 2048 KB'
+                ]);
+
             $file = $request->file('avatar_image_tempModal');            
             $extension  = $file->getClientOriginalExtension();
             $filename = $file->getClientOriginalName();

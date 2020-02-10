@@ -118,5 +118,21 @@
     });
 </script>
 <script src="/Content/js/jquery.ez-plus.js"></script>
+<script type="text/javascript">
+	// setInterval(function(){ 
+	//     var w = $(window).width();
+	//     var h = w / 3 / 2 * 2;
+	//     var t = w / 3 / 2;
+	//     var l = w / 3;
+	//     $(".gallery").height(h);
+	//     $(".grid-item:nth-child(3n+4)").css("top", t);
+	//     $(".grid-item:nth-child(3n+5)").css("top", t);
+	//     $(".grid-item:nth-child(3n+6)").css("top", t);
+
+	//     $(".grid-item:nth-child(3n+1)").css("left", 0);
+	//     $(".grid-item:nth-child(3n+2)").css("left", l);
+	//     $(".grid-item:nth-child(3n+3)").css("left", l * 2);
+	// }, 500);
+</script>
 </body>
 </html>

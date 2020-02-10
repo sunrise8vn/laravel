@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\CarCategory;
 use App\Cars;
+use App\OtherInfoCar;
 use App\CarLibrary;
 use Image;
 use Illuminate\Support\Facades\Storage;
@@ -21,12 +22,13 @@ class CarLibraryController extends Controller
     {
         $carCategory = CarCategory::where('isDeleted', 0)->orderBy('id', 'desc')->get();
         $carDetail = Cars::where('isDeleted', 0)->orderBy('id', 'desc')->get();
+        $otherInfoCar = OtherInfoCar::where('isDeleted', 0)->orderBy('id', 'asc')->get();
 
         $car = Cars::where('permalink', $permalink)->where('isDeleted', 0)->first();
         if($car != null) {
             $car_id = $car->id;
             $carLibrary = CarLibrary::where('car_id', $car_id)->where('isDeleted', 0)->orderBy('id', 'desc')->get();
-            return view('library', ['carCategory'=>$carCategory, 'carDetail'=>$carDetail, 'car'=>$car, 'carLibrary'=>$carLibrary]);
+            return view('library', ['carCategory'=>$carCategory, 'carDetail'=>$carDetail, 'otherInfoCar'=>$otherInfoCar, 'car'=>$car, 'carLibrary'=>$carLibrary]);
         }
         else {
             return redirect('/');
@@ -114,11 +116,6 @@ class CarLibraryController extends Controller
             $carLibrary->avatar = $avatar;                
             $carLibrary->size = $size;                
         }
-
-        // $myFile = "http://i3.ytimg.com/vi/".$video."/maxresdefault.jpg";
-        // $filename = basename($myFile);
-        // $destinationPath = public_path('/data/car/library/' .$request->cars .'/');
-        // Image::make($myFile)->save($destinationPath.$filename);
 
         $carLibrary->save();
         $car_id = $carLibrary->car_id;

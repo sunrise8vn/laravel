@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\CarCategory;
 use App\Cars;
+use App\OtherInfoCar;
 use App\ExpertAdviceGroup;
 use App\ExpertAdvice;
 use Image;
@@ -22,16 +23,19 @@ class ExpertAdviceController extends Controller
     {
         $carCategory = CarCategory::where('isDeleted', 0)->orderBy('id', 'desc')->get();
         $carDetail = Cars::where('isDeleted', 0)->orderBy('id', 'desc')->get();
+        $otherInfoCar = OtherInfoCar::where('isDeleted', 0)->orderBy('id', 'asc')->get();
+
         $expertAdviceGroup = ExpertAdviceGroup::where('isDeleted', 0)->orderBy('id', 'asc')->get();
         $expertAdvice = ExpertAdvice::where('isDeleted', 0)->orderBy('id', 'asc')->get();
 
-        return view('expert-advice',['carCategory'=>$carCategory, 'carDetail'=>$carDetail, 'expertAdviceGroup'=>$expertAdviceGroup, 'expertAdvice'=>$expertAdvice]);
+        return view('expert-advice',['carCategory'=>$carCategory, 'carDetail'=>$carDetail, 'otherInfoCar'=>$otherInfoCar, 'expertAdviceGroup'=>$expertAdviceGroup, 'expertAdvice'=>$expertAdvice]);
     }
 
     public function getDetail($permalink) 
     {
     	$carCategory = CarCategory::where('isDeleted', 0)->orderBy('id', 'desc')->get();
         $carDetail = Cars::where('isDeleted', 0)->orderBy('id', 'desc')->get();
+        $otherInfoCar = OtherInfoCar::where('isDeleted', 0)->orderBy('id', 'asc')->get();
 
         $expertAdvice = ExpertAdvice::where('permalink', $permalink)->where('isDeleted', 0)->first();
         if ($expertAdvice != null) {
@@ -39,7 +43,7 @@ class ExpertAdviceController extends Controller
 	        $id = $expertAdvice->pluck('id')->first();
 	        $expertAdviceAnother = ExpertAdvice::all()->where('group_id', $group_id)->where('id','<>', $id)->where('isDeleted', 0);
 
-	        return view('expert-advice-detail',['carCategory'=>$carCategory, 'carDetail'=>$carDetail, 'expertAdvice'=>$expertAdvice, 'expertAdviceAnother'=>$expertAdviceAnother]);
+	        return view('expert-advice-detail',['carCategory'=>$carCategory, 'carDetail'=>$carDetail, 'otherInfoCar'=>$otherInfoCar, 'expertAdvice'=>$expertAdvice, 'expertAdviceAnother'=>$expertAdviceAnother]);
         }
         else {
         	return $this->index();

@@ -62,6 +62,9 @@ class DiscoverCarsController extends Controller
             $avatarNonExt = removeUnicode(explode('.', $filename)[0]);
             $avatar = $avatarNonExt.".".$extension;
 			$destinationPath = public_path('/data/car/discover/' .$request->carCategory .'/');
+            if(!File::isDirectory($destinationPath)){
+                    File::makeDirectory($destinationPath, 0777, true, true);
+                }
 
             if(File::exists($destinationPath.$avatar))
             {
@@ -71,8 +74,11 @@ class DiscoverCarsController extends Controller
                     $avatar = $avatarNonExt ."_". $random .".".$extension;
                 }
             }
+
+            $resize_image = Image::make($file->getRealPath());
+            $resize_image->resize(280, 120)->save($destinationPath . $avatar);
             
-            $file->move($destinationPath, $avatar);
+            // $file->move($destinationPath, $avatar);
             $discoverCars->avatar = $avatar;                
         }
 
@@ -130,16 +136,23 @@ class DiscoverCarsController extends Controller
 	            $avatar = $avatarNonExt.".".$extension;
 				$destinationPath = public_path('/data/car/discover/' .$request->carCategory .'/');
 
-	            if(File::exists($destinationPath.$avatar))
-	            {
-	                while(File::exists($destinationPath.$avatar))
-	                {
-	                    $random = Str::random(4);
-	                    $avatar = $avatarNonExt ."_". $random .".".$extension;
-	                }
-	            }
+	            if(!File::isDirectory($destinationPath)){
+                    File::makeDirectory($destinationPath, 0777, true, true);
+                }
+
+                if(File::exists($destinationPath.$avatar))
+                {
+                    while(File::exists($destinationPath.$avatar))
+                    {
+                        $random = Str::random(4);
+                        $avatar = $avatarNonExt ."_". $random .".".$extension;
+                    }
+                }
+
+                $resize_image = Image::make($file->getRealPath());
+                $resize_image->resize(280, 120)->save($destinationPath . $avatar);
 	            
-	            $file->move($destinationPath, $avatar);
+	            // $file->move($destinationPath, $avatar);
 	            $discoverCars->avatar = $avatar;                
 	        }
 
@@ -160,16 +173,23 @@ class DiscoverCarsController extends Controller
 	            $avatar = $avatarNonExt.".".$extension;
 				$destinationPath = public_path('/data/car/discover/' .$request->carCategory .'/');
 
-	            if(File::exists($destinationPath.$avatar))
-	            {
-	                while(File::exists($destinationPath.$avatar))
-	                {
-	                    $random = Str::random(4);
-	                    $avatar = $avatarNonExt ."_". $random .".".$extension;
-	                }
-	            }
+	            if(!File::isDirectory($destinationPath)){
+                    File::makeDirectory($destinationPath, 0777, true, true);
+                }
+
+                if(File::exists($destinationPath.$avatar))
+                {
+                    while(File::exists($destinationPath.$avatar))
+                    {
+                        $random = Str::random(4);
+                        $avatar = $avatarNonExt ."_". $random .".".$extension;
+                    }
+                }
+
+                $resize_image = Image::make($file->getRealPath());
+                $resize_image->resize(280, 120)->save($destinationPath . $avatar);
 	            
-	            $file->move($destinationPath, $avatar);
+	            // $file->move($destinationPath, $avatar);
 	            $discoverCars->avatar = $avatar;                
 	        }
 

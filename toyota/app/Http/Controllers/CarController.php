@@ -24,22 +24,21 @@ use App\Spec\SpecConvnient;
 use App\Spec\SpecSecurity;
 use App\Spec\SpecActiveSafety;
 use App\Spec\SpecPassiveSafety;
+use App\OtherInfoCar;
 use Image;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
-
 use Illuminate\Support\Str;
 
 class CarController extends Controller
 {
-    
 
     public function getList()
     {
-        // $carDetail = Car::All()->where('isDeleted', 0);
         $carDetail = Cars::where('isDeleted', 0)->orderBy('id', 'desc')->get();
-        return view('cp.car.list',['carDetail'=>$carDetail]);
+        $otherInfoCar = OtherInfoCar::where('isDeleted', 0)->orderBy('id', 'asc')->get();
+        return view('cp.car.list',['carDetail'=>$carDetail, 'otherInfoCar'=>$otherInfoCar]);
     }
 
     public function getCreate()
@@ -52,12 +51,15 @@ class CarController extends Controller
     {
     	$this->validate($request,
             [
-                'name' => 'required|unique:car_details|between:3,100'
+                'name' => 'required|unique:car_details|between:3,100',
+                'avatar_image_temp' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             ],
             [
                 'name.required'=>'Bạn chưa nhập tên xe',
                 'name.between'=>'Tên xe phải có độ dài từ 3 đến 100 ký tự',
                 'name.unique'=> 'Tên xe đã tồn tại',
+                'avatar_image_temp.required' => 'Bạn chưa chọn hình ảnh',
+                'avatar_image_temp.max' => 'Hình ảnh phải có kích thước nhỏ hơn 2048 KB',
             ]);
 
         $permalink = removeUnicode($request->name);
@@ -69,16 +71,29 @@ class CarController extends Controller
             $car->name = $request->name;
             $permalink = removeUnicode($request->name);
             $car->permalink = $permalink;
-
             $car->price = $request->price;
             $car->number_of_seats = $request->number_of_seats;
             $car->design = $request->design;
             $car->fuel = $request->fuel;
             $car->origin = $request->origin;
-            $car->info = $request->info;
+            // $car->info = $request->info;
             $car->avatar = $request->avatar;
             $car->isDeleted = 0;
             $car->save();
+
+            $car_id = $car->id;
+            $input = $request->itemsInfo;
+            $count = 0;
+            $itemsInfo = json_decode($input[0]);
+            if(!@empty ($itemsInfo)) {
+                $count = count($itemsInfo);
+                for ($i=0; $i < $count; $i++) { 
+                    $otherInfoCar = new OtherInfoCar;
+                    $otherInfoCar->content = $itemsInfo[$i];
+                    $otherInfoCar->car_id = $car_id;
+                    $otherInfoCar->save();
+                }
+            }
 
             if($request->hasFile('avatar_image_temp'))
             {
@@ -89,106 +104,36 @@ class CarController extends Controller
                 $avatarNonExt = removeUnicode(explode('.', $filename)[0]);
                 $avatar = $avatarNonExt.".".$extension;
                 $destinationPath = public_path('/data/car/avatar/' .$car->id .'/');
-
-                if(File::exists($destinationPath.$avatar))
+                if(!File::isDirectory($destinationPath)){
+                    File::makeDirectory($destinationPath, 0777, true, true);
+                }
+                $destinationThumbPath = public_path('/data/car/thumb/' .$car->id .'/');
+                if(!File::isDirectory($destinationThumbPath)){
+                    File::makeDirectory($destinationThumbPath, 0777, true, true);
+                }
+                if(File::exists($destinationThumbPath.$avatar))
                 {
-                    while(File::exists($destinationPath.$avatar))
+                    while(File::exists($destinationThumbPath.$avatar))
                     {
                         $random = Str::random(4);
                         $avatar = $avatarNonExt ."_". $random .".".$extension;
                     }
                 }
                 
+                $resize_thumb = Image::make($file->getRealPath());
+                $resize_thumb->resize(250, 145)->save($destinationThumbPath . $avatar);
+
+                $resize_avatar = Image::make($file->getRealPath());
+                $resize_avatar->resize(500, 350, function($constraint){
+                    $constraint->aspectRatio();
+                })->save($destinationPath . $avatar);
+
                 $file->move($destinationPath, $avatar);
-                $car->avatar = $avatar;    
+                $car->avatar = $avatar;  
                 $car->save();            
             }
 
             return redirect('cp/car/create')->with('notification','Thêm mẫu xe thành công');
-
-            // $car_id = $car->id;
-
-            // $exteriorsGroup = new CarExteriorsGroup();
-            // $exteriorsGroup->car_id = $car_id;
-            // $exteriorsGroup->isDeleted = 0;
-            // $exteriorsGroup->status = 0;
-            // $exteriorsGroup->save();
-
-            // $furnituresGroup = new CarFurnituresGroup();
-            // $furnituresGroup->car_id = $car_id;
-            // $furnituresGroup->isDeleted = 0;
-            // $furnituresGroup->status = 0;
-            // $furnituresGroup->save();
-
-            // $specEngineFrame = new SpecEngineFrame();
-            // $specEngineFrame->car_id = $car_id;
-            // $specEngineFrame->isDeleted = 0;
-            // $specEngineFrame->status = 0;
-            // $specEngineFrame->save();
-
-            // $specExteriors = new SpecExteriors();
-            // $specExteriors->car_id = $car_id;
-            // $specExteriors->isDeleted = 0;
-            // $specExteriors->status = 0;
-            // $specExteriors->save();
-
-            // $specFurnitures = new SpecFurnitures();
-            // $specFurnitures->car_id = $car_id;
-            // $specFurnitures->isDeleted = 0;
-            // $specFurnitures->status = 0;
-            // $specFurnitures->save();
-
-            // $specChair = new SpecChair();
-            // $specChair->car_id = $car_id;
-            // $specChair->isDeleted = 0;
-            // $specChair->status = 0;
-            // $specChair->save();
-
-            // $specConvnient = new SpecConvnient();
-            // $specConvnient->car_id = $car_id;
-            // $specConvnient->isDeleted = 0;
-            // $specConvnient->status = 0;
-            // $specConvnient->save();
-
-            // $specSecurity = new SpecSecurity();
-            // $specSecurity->car_id = $car_id;
-            // $specSecurity->isDeleted = 0;
-            // $specSecurity->status = 0;
-            // $specSecurity->save();
-
-            // $specActiveSafety = new SpecActiveSafety();
-            // $specActiveSafety->car_id = $car_id;
-            // $specActiveSafety->isDeleted = 0;
-            // $specActiveSafety->status = 0;
-            // $specActiveSafety->save();
-
-            // $specPassiveSafety = new SpecPassiveSafety();
-            // $specPassiveSafety->car_id = $car_id;
-            // $specPassiveSafety->isDeleted = 0;
-            // $specPassiveSafety->status = 0;
-            // $specPassiveSafety->save();
-
-            // $exteriorsGroup->save();
-            // $furnituresGroup->save();
-            // $specEngineFrame->save();
-            // $specExteriors->save();
-            // $specFurnitures->save();
-            // $specChair->save();
-            // $specConvnient->save();
-            // $specSecurity->save();
-            // $specActiveSafety->save();
-            // $specPassiveSafety->save();
-
-            // $countCarId = $specPassiveSafety::where('car_id', $car_id)->count();
-            // if($countCarId == 1) {
-            //     return redirect('cp/car/create')->with('notification','Thêm mẫu xe thành công');    
-            // }
-            // else {
-            //     $specActiveSafety = SpecActiveSafety::where('car_id', $car_id);
-            //     $specActiveSafety->delete();
-            //     $car->delete();
-            // }
-            
         }
         else {
             return redirect('cp/car/edit/' .$id)->with('error','Tên mẫu xe đã tồn tại');
@@ -199,19 +144,22 @@ class CarController extends Controller
     {
         $carCategory = CarCategory::where('isDeleted', 0)->orderBy('id', 'asc')->get();
         $car = Cars::find($id);
-        return view('cp.car.edit',['carCategory'=> $carCategory,'car'=> $car]);
+        $otherInfoCar = OtherInfoCar::where('car_id', $id)->where('isDeleted', 0)->orderBy('id', 'asc')->get();
+        return view('cp.car.edit',['carCategory'=> $carCategory,'car'=> $car, 'otherInfoCar'=>$otherInfoCar]);
     }
 
     public function postEdit(Request $request, $id)
     {
         $this->validate($request,
             [
-                'name' => 'required|between:3,100'
+                'name' => 'required|between:3,100',
+                'avatar_image_temp' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             ],
             [
                 'name.required'=>'Bạn chưa nhập tên xe',
                 'name.between'=>'Tên xe phải có độ dài từ 3 đến 100 ký tự',
                 'name.unique'=> 'Tên xe đã tồn tại',
+                'avatar_image_temp.max' => 'Hình ảnh phải có kích thước nhỏ hơn 2048 KB',
             ]);
 
         $car = Cars::find($id);
@@ -222,13 +170,12 @@ class CarController extends Controller
             $car->name = $request->name;
             $permalink = removeUnicode($request->name);
             $car->permalink = $permalink;
-
             $car->price = $request->price;
             $car->number_of_seats = $request->number_of_seats;
             $car->design = $request->design;
             $car->fuel = $request->fuel;
             $car->origin = $request->origin;
-            $car->info = $request->info;
+            // $car->info = $request->info;
             $car->save();
 
             if($request->hasFile('avatar_image_temp'))
@@ -240,17 +187,33 @@ class CarController extends Controller
                 $avatarNonExt = removeUnicode(explode('.', $filename)[0]);
                 $avatar = $avatarNonExt.".".$extension;
                 $destinationPath = public_path('/data/car/avatar/' .$car->id .'/');
+                if(!File::isDirectory($destinationPath)){
+                    File::makeDirectory($destinationPath, 0777, true, true);
+                }
 
-                if(File::exists($destinationPath.$avatar))
+                $destinationThumbPath = public_path('/data/car/thumb/' .$car->id .'/');
+                if(!File::isDirectory($destinationThumbPath)){
+                    File::makeDirectory($destinationThumbPath, 0777, true, true);
+                }
+
+                if(File::exists($destinationThumbPath.$avatar))
                 {
-                    while(File::exists($destinationPath.$avatar))
+                    while(File::exists($destinationThumbPath.$avatar))
                     {
                         $random = Str::random(4);
                         $avatar = $avatarNonExt ."_". $random .".".$extension;
                     }
                 }
+                
+                $resize_thumb = Image::make($file->getRealPath());
+                $resize_thumb->resize(250, 145)->save($destinationThumbPath . $avatar);
 
-                $file->move($destinationPath, $avatar);
+                $resize_avatar = Image::make($file->getRealPath());
+                $resize_avatar->resize(500, 350, function($constraint){
+                  $constraint->aspectRatio();
+                 })->save($destinationPath . $avatar);
+
+                // $file->move($destinationPath, $avatar);
                 $car->avatar = $avatar;    
                 $car->save();            
             }
@@ -265,6 +228,7 @@ class CarController extends Controller
     {
         $carCategory = CarCategory::where('isDeleted', 0)->orderBy('id', 'desc')->get();
         $carDetail = Cars::where('isDeleted', 0)->orderBy('id', 'desc')->get();
+        $otherInfoCar = OtherInfoCar::where('isDeleted', 0)->orderBy('id', 'asc')->get();
 
         $car = Cars::where('permalink', $permalink)->where('isDeleted', 0)->first();
         if($car != null) {
@@ -297,7 +261,7 @@ class CarController extends Controller
             $specPassiveSafety = SpecPassiveSafety::where('car_id', $car_id)->where('isDeleted', 0)->first();
 
             
-            return view('car',['carCategory'=>$carCategory, 'carDetail'=>$carDetail, 'car'=>$car, 'carColors'=>$carColors, 'anotherCarModels'=>$anotherCarModels, 'carLibrary'=>$carLibrary, 'carExteriorsGroup'=>$carExteriorsGroup, 'carExteriors'=>$carExteriors, 'carFurnituresGroup'=>$carFurnituresGroup, 'carFurnitures'=>$carFurnitures, 'functionGroup'=>$functionGroup, 'carFunctions'=>$carFunctions, 'specEngineFrame'=>$specEngineFrame, 'specExteriors'=>$specExteriors, 'specFurnitures'=>$specFurnitures, 'specChair'=>$specChair, 'specConvnient'=>$specConvnient, 'specSecurity'=>$specSecurity, 'specActiveSafety'=>$specActiveSafety, 'specPassiveSafety'=>$specPassiveSafety, 'genuineAccessoriesGroup'=>$genuineAccessoriesGroup, 'genuineAccessories'=>$genuineAccessories]);
+            return view('car',['carCategory'=>$carCategory, 'carDetail'=>$carDetail, 'otherInfoCar'=>$otherInfoCar, 'car'=>$car, 'carColors'=>$carColors, 'anotherCarModels'=>$anotherCarModels, 'carLibrary'=>$carLibrary, 'carExteriorsGroup'=>$carExteriorsGroup, 'carExteriors'=>$carExteriors, 'carFurnituresGroup'=>$carFurnituresGroup, 'carFurnitures'=>$carFurnitures, 'functionGroup'=>$functionGroup, 'carFunctions'=>$carFunctions, 'specEngineFrame'=>$specEngineFrame, 'specExteriors'=>$specExteriors, 'specFurnitures'=>$specFurnitures, 'specChair'=>$specChair, 'specConvnient'=>$specConvnient, 'specSecurity'=>$specSecurity, 'specActiveSafety'=>$specActiveSafety, 'specPassiveSafety'=>$specPassiveSafety, 'genuineAccessoriesGroup'=>$genuineAccessoriesGroup, 'genuineAccessories'=>$genuineAccessories]);
         }
         else {
             return redirect('/');

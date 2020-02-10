@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\CarCategory;
 use App\Cars;
+use App\OtherInfoCar;
 use App\Introduce;
 use Image;
 use Illuminate\Support\Facades\Storage;
@@ -18,9 +19,11 @@ class IntroduceController extends Controller
     {
         $carCategory = CarCategory::where('isDeleted', 0)->orderBy('id', 'desc')->get();
         $carDetail = Cars::where('isDeleted', 0)->orderBy('id', 'desc')->get();
+        $otherInfoCar = OtherInfoCar::where('isDeleted', 0)->orderBy('id', 'asc')->get();
+        
         $introduce = Introduce::where('isDeleted', 0)->orderBy('id', 'desc')->first();
 
-        return view('introduce',['carCategory'=>$carCategory, 'carDetail'=>$carDetail, 'introduce'=>$introduce]);
+        return view('introduce',['carCategory'=>$carCategory, 'carDetail'=>$carDetail, 'otherInfoCar'=>$otherInfoCar, 'introduce'=>$introduce]);
     }
 
     public function getEdit()

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\CarCategory;
 use App\Cars;
+use App\OtherInfoCar;
 use App\Slide;
 use App\DiscoverCars;
 use App\SalesmenGroup;
@@ -34,6 +35,7 @@ class HomeController extends Controller
     {
         $carCategory = CarCategory::where('isDeleted', 0)->orderBy('id', 'desc')->get();
         $carDetail = Cars::where('isDeleted', 0)->orderBy('id', 'desc')->get();
+        $otherInfoCar = OtherInfoCar::where('isDeleted', 0)->orderBy('id', 'asc')->get();
 
         $slide = Slide::where('isDeleted', 0)->orderBy('updated_at', 'desc')->get();
         
@@ -45,7 +47,7 @@ class HomeController extends Controller
         $news = News::where('isDeleted', 0)->orderBy('id', 'desc')->get();
 
 
-        return view('index1',['carCategory'=>$carCategory, 'carDetail'=>$carDetail, 'slide'=>$slide, 'discoverCars'=>$discoverCars, 'salesmenGroup'=>$salesmenGroup, 'salesmen'=>$salesmen, 'newsCategory'=>$newsCategory, 'news'=>$news]);
+        return view('index1',['carCategory'=>$carCategory, 'carDetail'=>$carDetail, 'otherInfoCar'=>$otherInfoCar, 'slide'=>$slide, 'discoverCars'=>$discoverCars, 'salesmenGroup'=>$salesmenGroup, 'salesmen'=>$salesmen, 'newsCategory'=>$newsCategory, 'news'=>$news]);
     }
 
 }

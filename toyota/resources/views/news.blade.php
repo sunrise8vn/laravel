@@ -33,22 +33,22 @@
             <div class="page_detail_news">
                 <div class="container">
                     <div class="top_pg">
-                    <span class="txt1">
-                        Toyota Việt Nam
-                    {{-- </span> &nbsp; &nbsp;<span class="txt2">06.11.2019</span> --}}
+                        <span class="txt1">
+                            {{$news[0]['created_by']}}
+                        </span> &nbsp; &nbsp;<span class="txt2">{{date('d-m-Y', strtotime($news[0]['created_at']))}}</span>
                     </div>
                     <div class="row">
                         <div class="col l8 m8 s12 col01">
-                            @foreach($news as $n)
-                                <h1 class="txt_tt">{{$n->title}}</h1>
+                            {{-- @foreach($news as $item) --}}
+                                <h1 class="txt_tt">{{$news[0]['title']}}</h1>
                                 <div class="social-row">
                                     <span class="item facebook">
-                                        <a class="fbShare" onclick='window.open("https://www.facebook.com/sharer/sharer.php?u=https://toyotahue.co/tin-tuc/{{$n->permalink}}.html", "pop", "width=600, height=400, scrollbars=no");'>
+                                        <a class="fbShare" onclick='window.open("https://www.facebook.com/sharer/sharer.php?u=https://toyotahue.co/{{ route('news.getDetail', $news[0]['permalink']) }}", "pop", "width=600, height=400, scrollbars=no");'>
                                             <i class="icon_fb"></i>
                                         </a>
                                     </span>
                                     <span class="item gplus">
-                                        <a href="https://plus.google.com/share?url=https://toyotahue.co/tin-tuc/{{$n->permalink}}.html" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=650');return false;">
+                                        <a href="https://plus.google.com/share?url=https://toyotahue.co/{{ route('news.getDetail', $news[0]['permalink']) }}" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=650');return false;">
                                             <img src="/Content/images/gplus-32.png" alt="Chia sẻ lên vòng kết nối Google+" />
                                         </a>
                                     </span>
@@ -58,8 +58,8 @@
                                         </a>
                                     </span>
                                 </div>
-                                <div class="content_page clearfix" id="content_news_page">{!!$n->content!!}</div>
-                            @endforeach
+                                <div class="content_page clearfix" id="content_news_page">{!!$news[0]['content']!!}</div>
+                            {{-- @endforeach --}}
                         </div>
                         <div class="col l3 m3 s12 right col02">
                             <ul class="news others">
@@ -68,15 +68,15 @@
                                     <li class="item col s12">
                                         <div class="inner">
                                             <p class="img">
-                                                <a href="/tin-tuc/{{$na->permalink}}.html" title="{{$na->title}}" target="_parent">
+                                                <a href="{{ route('news.getDetail', $na->permalink) }}" title="{{$na->title}}" target="_parent">
                                                     <img class="lazy" src="/Content/images/notfound/notfound-images.png" data-original="/data/news/{{$na->avatar}}?w=278&amp;h=168&amp;mode=crop" />
                                                 </a>
                                             </p>
                                             <div class="txt">
                                                 <h3 class="title">
-                                                    <a href="/tin-tuc/{{$na->permalink}}.html" title="{{$na->title}}" target="_parent">{{$na->title}}</a>
+                                                    <a href="{{ route('news.getDetail', $na->permalink) }}" title="{{$na->title}}" target="_parent">{{$na->title}}</a>
                                                 </h3>
-                                                <div class="desc" style="margin-bottom: 10px">{{$na->created_at}}</div>
+                                                <div class="desc" style="margin-bottom: 10px">{{date('d-m-Y', strtotime($na->created_at))}}</div>
                                                 <span class="cate_of">
                                                     <span class="auth">Đăng bởi: </span>
                                                     <span>{{$na->created_by}}</span>
@@ -101,14 +101,14 @@
 
 </div>
 
-@include('layout.tool_icon_right')
+    @include('layout.tool_icon_right')
 
-@include('layout.jsfiles')
-<script type="text/javascript">
-    $(document).ready(function () {
-        doSomethingWithStorage();
-    });
-</script>
-<script src="/Content/js/jquery.ez-plus.js"></script>
+    @include('layout.jsfiles')
+    <script type="text/javascript">
+        $(document).ready(function () {
+            doSomethingWithStorage();
+        });
+    </script>
+    <script src="/Content/js/jquery.ez-plus.js"></script>
 </body>
 </html>

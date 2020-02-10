@@ -54,7 +54,7 @@
     <form action="cp/login" method="post">
       @csrf
       <div class="form-group has-feedback">
-        <input type="email" name="email" class="form-control" placeholder="Tài khoản">
+        <input type="text" name="email" class="form-control" placeholder="Tài khoản">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">

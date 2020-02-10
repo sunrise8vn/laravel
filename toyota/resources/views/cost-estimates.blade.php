@@ -282,21 +282,22 @@
                   <div class="list-cate all">
                     <input type="hidden" id="hdSeoUrlTool" value="xe-moi" />
                     <ul class="slide-mb" id="ulSlideMobile">
+                      @foreach($carDetail as $car)
                       <li class="item">
                         <div class="inner">
                           <div class="sm_checkbox">
                             <input type="checkbox" class="checkCarTool" data-url="yaris-1-5g-cvt" 
-                                   data-image="/data/news/3805/kmisun.png?width=500" data-caturl="yaris" data-catId="800" data-name="Yaris 1.5G CVT" data-price='650.000.000' data-idCar="3805" id="checkbox-03805">
-                            <label for="checkbox-03805">
+                                   data-image="/data/car/thumb/{{$car->id}}/{{$car->avatar}}?width=500" data-caturl="yaris" data-catId="800" data-name="{{$car->name}}" data-price='{{$car->price}}' data-idCar="{{$car->id}}" id="checkbox-0{{$car->id}}">
+                            <label for="checkbox-0{{$car->id}}">
                               <span class="img">
-                                <img src='data/news/3805/4modfh.png' />
+                                <img src='/data/car/thumb/{{$car->id}}/{{$car->avatar}}' />
                               </span>
                               <span class="txt">
                                 <span class="txt1"><span class="check"></span></span>
                                 <span class="txt2">
-                                  <span class="name">Yaris 1.5G CVT</span>
+                                  <span class="name">{{$car->name}}</span>
                                   <span class="price">
-                                    Giá từ: <span>650,000,000</span> <sup>VND</sup>
+                                    Giá từ: <span>{{$car->price}}</span> <sup>VND</sup>
                                   </span>
                                 </span>
                               </span>
@@ -304,116 +305,9 @@
                           </div>
                         </div>
                       </li>
-                      <li class="item">
-                        <div class="inner">
-                          <div class="sm_checkbox">
-                            <input type="checkbox" class="checkCarTool" data-url="wigo-4at" 
-                                   data-image="/data/news/3951/3dx2wv.png?width=500" data-caturl="wigo" data-catId="888" data-name="Wigo 4AT" data-price='405.000.000' data-idCar="3951" id="checkbox-03951">
-                            <label for="checkbox-03951">
-                              <span class="img">
-                                <img src='data/news/3951/kfe4g2.png' />
-                              </span>
-                              <span class="txt">
-                                <span class="txt1"><span class="check"></span></span>
-                                <span class="txt2">
-                                  <span class="name">Wigo 4AT</span>
-                                  <span class="price">
-                                    Giá từ: <span>405,000,000</span> <sup>VND</sup>
-                                  </span>
-                                </span>
-                              </span>
-                            </label>
-                          </div>
-                        </div>
-                      </li>
-                      <li class="item">
-                        <div class="inner">
-                          <div class="sm_checkbox">
-                            <input type="checkbox" class="checkCarTool" data-url="wigo-5mt" 
-                                   data-image="/data/news/3953/swzbdm.png?width=500" data-caturl="wigo" data-catId="888" data-name="Wigo 5MT" data-price='345.000.000' data-idCar="3953" id="checkbox-03953">
-                            <label for="checkbox-03953">
-                              <span class="img">
-                                <img src='data/news/3953/3hbkcy.png' />
-                              </span>
-                              <span class="txt">
-                                <span class="txt1"><span class="check"></span></span>
-                                <span class="txt2">
-                                  <span class="name">Wigo 5MT</span>
-                                  <span class="price">
-                                    Giá từ: <span>345,000,000</span> <sup>VND</sup>
-                                  </span>
-                                </span>
-                              </span>
-                            </label>
-                          </div>
-                        </div>
-                      </li>
-                      <li class="item">
-                        <div class="inner">
-                          <div class="sm_checkbox">
-                            <input type="checkbox" class="checkCarTool" data-url="avanza-at" 
-                                   data-image="/data/news/3959/toio2v.jpg?width=500" data-caturl="avanza" data-catId="889" data-name="Avanza AT" data-price='612.000.000' data-idCar="3959" id="checkbox-03959">
-                            <label for="checkbox-03959">
-                              <span class="img">
-                                <img src='data/news/3959/eq30bj.png' />
-                              </span>
-                              <span class="txt">
-                                <span class="txt1"><span class="check"></span></span>
-                                <span class="txt2">
-                                  <span class="name">Avanza AT</span>
-                                  <span class="price">
-                                    Giá từ: <span>612,000,000</span> <sup>VND</sup>
-                                  </span>
-                                </span>
-                              </span>
-                            </label>
-                          </div>
-                        </div>
-                      </li>
-                      <li class="item">
-                        <div class="inner">
-                          <div class="sm_checkbox">
-                            <input type="checkbox" class="checkCarTool" data-url="avanza-mt" 
-                                   data-image="/data/news/3960/dnkpxg.png?width=500" data-caturl="avanza" data-catId="889" data-name="Avanza MT" data-price='544.000.000' data-idCar="3960" id="checkbox-03960">
-                            <label for="checkbox-03960">
-                              <span class="img">
-                                <img src='data/news/3960/yuppzi.png' />
-                              </span>
-                              <span class="txt">
-                                <span class="txt1"><span class="check"></span></span>
-                                <span class="txt2">
-                                  <span class="name">Avanza MT</span>
-                                  <span class="price">
-                                    Giá từ: <span>544,000,000</span> <sup>VND</sup>
-                                  </span>
-                                </span>
-                              </span>
-                            </label>
-                          </div>
-                        </div>
-                      </li>
-                      <li class="item">
-                        <div class="inner">
-                          <div class="sm_checkbox">
-                            <input type="checkbox" class="checkCarTool" data-url="rush-s-1-5at" 
-                                   data-image="/data/news/3961/z2tclw.png?width=500" data-caturl="rush" data-catId="890" data-name="Rush S 1.5AT" data-price='668.000.000' data-idCar="3961" id="checkbox-03961">
-                            <label for="checkbox-03961">
-                              <span class="img">
-                                <img src='data/news/3961/0pxnnt.png' />
-                              </span>
-                              <span class="txt">
-                                <span class="txt1"><span class="check"></span></span>
-                                <span class="txt2">
-                                  <span class="name">Rush S 1.5AT</span>
-                                  <span class="price">
-                                    Giá từ: <span>668,000,000</span> <sup>VND</sup>
-                                  </span>
-                                </span>
-                              </span>
-                            </label>
-                          </div>
-                        </div>
-                      </li>
+                      @endforeach
+                      
+                      
                     </ul>
                   </div>
                 </div>
@@ -454,7 +348,11 @@
                         </div>
                       </div>
                       <div class="col l7 m7 s12">
-                        <p class="img"><img src="Content/images/notfound.png" class="imageOfCarSelectedTool" alt=""><span class="obj_title nameOfCarSelectedTool"></span></p>
+                        <p class="img">
+                          {{-- <img src="Content/images/notfound.png" class="imageOfCarSelectedTool" alt=""> --}}
+                          <img src="/data/car/avatar/237/iqkfet.png?width=500" class="imageOfCarSelectedTool" alt="">
+                          <span class="obj_title nameOfCarSelectedTool"></span>
+                        </p>
                         <input type="hidden" id="hdCurrentCarId_Access" value="0" />
                         <input type="hidden" id="hdCurrentCarId_Area" value="0" />
                         <input type="hidden" id="hdCurrentEstimate_Price" value="0" />
@@ -649,6 +547,6 @@
 
 	@include('layout.jsfiles')
 
-  	<script src="App/Export/Javascript/page.estimate.min.js"></script>
+  	<script src="/App/Export/Javascript/page.estimate.min.js"></script>
 </body>
 </html>

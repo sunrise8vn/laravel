@@ -75,61 +75,66 @@
                     </div>
                 </div>
                 <div class="box-body">
-            		<div class="col-md-3">
-                        <div class="form-group">
-                            <button type="button" class="btn btn-block btn-success btn-flat" onclick="openPage('/cp/news')">Quay về danh sách</button>
-                        </div>
-                    </div>
-	            	<form action="cp/news/create" method="POST" enctype="multipart/form-data">
-	                    @csrf
-                        <div class="col-md-12">
-                            <div class="form-group">
-                              	<label>Danh mục tin tức</label>
-                              	<select class="form-control" name='newsCategories'>
-                                  	@foreach($newsCategories as $newsCate)
-                                      	<option value="{{$newsCate->id}}">{{$newsCate->title}}</option>
-                                  	@endforeach
-                              	</select>
+              		<div class="row">
+                      <div class="col-md-3">
+                          <div class="form-group">
+                              <button type="button" class="btn btn-block btn-success btn-flat" onclick="openPage('/cp/news')">Quay về danh sách</button>
                           </div>
-                        </div>
+                      </div>
+                  </div>
+                  <div class="row">
+    	            	<form action="cp/news/create" method="POST" enctype="multipart/form-data">
+    	                    @csrf
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                  	<label>Danh mục tin tức</label>
+                                  	<select class="form-control" name='newsCategories'>
+                                      	@foreach($newsCategories as $newsCate)
+                                          	<option value="{{$newsCate->id}}">{{$newsCate->title}}</option>
+                                      	@endforeach
+                                  	</select>
+                              </div>
+                            </div>
 
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>Tiêu đề</label>
-                                <input type="text" class="form-control" name="title" required placeholder="Nhập tiêu đề" />
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Tiêu đề</label>
+                                    <input type="text" class="form-control" name="title" required placeholder="Nhập tiêu đề" />
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>Tóm tắt</label>
-                                <input type="text" class="form-control" name="summary" placeholder="Nhập tóm tắt" />
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Ảnh dại diện</label>
+                                    <input type="hidden" class="form-control" id="avatar" name="avatar" />
+                                    <br>
+                                    <img id="avatar_temp" class="avatar" name="avatar_temp" >
+                                    <br><br>
+                                    <input type="file" id="avatar_image_temp" name="avatar_image_temp" onchange="uploadImageBase64(this, '#avatar_temp');readURLAvartar(this);">
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>Nội dung</label>
-                                <textarea name="content" style="width: 100%; height: 400px;"></textarea>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Tóm tắt</label>
+                                    <input type="text" class="form-control" name="summary" placeholder="Nhập tóm tắt" />
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>Ảnh dại diện</label>
-                                <input type="hidden" class="form-control" id="avatar" name="avatar" />
-                                <br>
-                                <img id="avatar_temp" class="avatar" name="avatar_temp" >
-                                <br><br>
-                                <input type="file" id="avatar_image_temp" name="avatar_image_temp" onchange="uploadImageBase64(this, '#avatar_temp');readURLAvartar(this);">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Nội dung</label>
+                                    <textarea name="content" style="width: 100%; height: 400px;"></textarea>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="col-md-12">
-  		                      <div class="col-md-6" style=" padding: 10px 15px 20px 0;">
-  		                    	   <button type="submit" class="btn btn-block btn-info btn-flat">Thêm bài viết</button>	
-  		                      </div>
-  	                    </div>
-	                    
-	                </form>
-                </div>
+                            <div class="col-md-12">
+      		                      <div class="col-md-6" style=" padding: 10px 15px 20px 0;">
+      		                    	    <button type="submit" class="btn btn-block btn-info btn-flat">
+                                        <span class="glyphicon glyphicon-plus"></span> Thêm bài viết
+                                    </button>	
+      		                      </div>
+      	                    </div>
+    	                </form>
+                  </div>
+              </div>
                 <!-- /.box-body -->
           </div>
 

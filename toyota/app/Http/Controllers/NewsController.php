@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\CarCategory;
 use App\Cars;
+use App\OtherInfoCar;
 use App\NewsCategories;
 use App\News;
 use Image;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
-
 use Illuminate\Support\Str;
 
 class NewsController extends Controller
@@ -49,6 +50,7 @@ class NewsController extends Controller
         $news->summary = $request->summary;
         $news->content = $request->content;
 		$news->avatar = $request->avatar;
+        $news->created_by = Auth::user()->display_name;
         $news->isDeleted = 0;
         $news->save();
 
@@ -92,7 +94,7 @@ class NewsController extends Controller
         $this->validate($request,
             [
                 'title' => 'required|between:3,200',
-                'title' => Rule::unique('news')->ignore($news->id)
+                // 'title' => Rule::unique('news')->ignore($news->id)
             ],
             [
                 'title.required'=>'Bạn chưa nhập tiêu đề bài viết',
@@ -108,6 +110,7 @@ class NewsController extends Controller
         $news->summary = $request->summary;
         $news->content = $request->content;
 		$news->avatar = $request->avatar;
+        $news->updated_by = Auth::user()->display_name;
         // $news->save();
         // $updated_by = Auth::user()->id;
 
@@ -143,29 +146,37 @@ class NewsController extends Controller
     {
         $carCategory = CarCategory::where('isDeleted', 0)->orderBy('id', 'desc')->get();
         $carDetail = Cars::where('isDeleted', 0)->orderBy('id', 'desc')->get();
+        $otherInfoCar = OtherInfoCar::where('isDeleted', 0)->orderBy('id', 'asc')->get();
 
         $news = News::where('permalink', $permalink)->where('isDeleted', 0)->get();
-        $news_cate_id = $news->pluck('news_cate_id')->first();        
-        $id = $news->pluck('id')->first();
-        $newsAnother = News::all()->where('news_cate_id', $news_cate_id)->where('id','<>', $id)->where('isDeleted', 0);
-        return view('news', ['carCategory'=>$carCategory, 'carDetail'=>$carDetail, 'news'=>$news, 'newsAnother'=>$newsAnother]);
+        if($news != null) {
+            $news_cate_id = $news->pluck('news_cate_id')->first();        
+            $id = $news->pluck('id')->first();
+            $newsAnother = News::all()->where('id','!=', $id)->where('news_cate_id', $news_cate_id)->where('isDeleted', 0);
+            return view('news', ['carCategory'=>$carCategory, 'carDetail'=>$carDetail, 'otherInfoCar'=>$otherInfoCar, 'news'=>$news, 'newsAnother'=>$newsAnother]);
+        }
+        else {
+            return redirect('/');
+        }
+        
     }
 
     public function getAllNews($permalink)
     {
         $carCategory = CarCategory::where('isDeleted', 0)->orderBy('id', 'desc')->get();
         $carDetail = Cars::where('isDeleted', 0)->orderBy('id', 'desc')->get();
+        $otherInfoCar = OtherInfoCar::where('isDeleted', 0)->orderBy('id', 'asc')->get();
 
         $newsCategory = NewsCategories::orderBy('id', 'asc')->get()->where('isDeleted', 0);
         $news = News::where('isDeleted', 0)->orderBy('id', 'desc')->get();
-        return view('all-news', ['carCategory'=>$carCategory, 'carDetail'=>$carDetail, 'newsCategory'=>$newsCategory, 'news'=>$news, 'permalink'=>$permalink]);
+        return view('all-news', ['carCategory'=>$carCategory, 'carDetail'=>$carDetail, 'otherInfoCar'=>$otherInfoCar, 'newsCategory'=>$newsCategory, 'news'=>$news, 'permalink'=>$permalink]);
     }
 
-    public function getDelete($id) 
+    public function getDelete(Request $request) 
     {
+        $id = $request->id;
         $news = News::find($id);
         $news->isDeleted = 1;
         $news->save();
-        return redirect('cp/news')->with('notification','Xóa bài viết tin tức thành công');
     }
 }

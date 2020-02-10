@@ -26,7 +26,7 @@
                         <p class="name_dt">Nội thất</p>
                         <p class="txt_dt">{{$carFurnituresGroup['title']}}</p>
                         <p class="txt_dt_2">{{$carFurnituresGroup['description']}}</p>
-                        <p class="sm-link-viewmore"><a class="changelink" data-href="/noi-that/{{$car->permalink}}.html">Xem thêm ...</a></p>
+                        <p class="sm-link-viewmore"><a class="changelink" data-href="{{ route('furnitures.getDetail', $car->permalink) }}">Xem thêm ...</a></p>
                     </div>
                 </div>
             </div>

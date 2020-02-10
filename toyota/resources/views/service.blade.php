@@ -151,24 +151,24 @@
                                     <input type="hidden" id="hdAutoPart" value="phu-tung">
                                     <ul class="news row newsContent auto_part" id="ulListAutoPart">
                                         @foreach($genuineAccessary as $geAcc)
-                                            <li class="item item-autopart col l4 m4 s12 ">
-                                                <a class="various viewAutoPart" data-link="{{$geAcc->permalink}}" href="#popViewAutoPart00{{$geAcc->id}}">
-                                                    <div class="inner">
-                                                        <p class="img">
-                                                            <img class="lazy" src="/data/service/accessary/{{$geAcc->avatar}}?w=280&amp;h=158&amp;mode=crop" data-original="/data/service/accessary/{{$geAcc->avatar}}?w=280&amp;h=158&amp;mode=crop" alt="{{$geAcc->name}}" style="display: inline;">
-                                                        </p>
-                                                       
-                                                        <div class="txt">
-                                                            <h3 class="title" title="{{$geAcc->name}}">{{$geAcc->name}}</h3>
-                                                            @php($firstAccDel = $genuineAccessaryDetail->where('acc_id', $geAcc->id)->first())
-                                                            {{-- @foreach($firstAccDel as $geAccDel) --}}
-                                                            {{-- <div class="desc">{!!$geAcc->GenuineAccessaryDetail->first()->summary!!}</div> --}}
-                                                            <div class="desc">{!!$firstAccDel['summary']!!}</div>
-                                                            {{-- @endforeach --}}
+                                            @php($countItem = $genuineAccessaryDetail->where('acc_id', $geAcc->id)->count())
+                                            @if($countItem > 0)
+                                                <li class="item item-autopart col l4 m4 s12 ">
+                                                    <a class="various viewAutoPart" data-link="{{$geAcc->permalink}}" href="#popViewAutoPart00{{$geAcc->id}}">
+                                                        <div class="inner">
+                                                            <p class="img">
+                                                                <img class="lazy" src="/data/service/accessary/{{$geAcc->avatar}}?w=280&amp;h=158&amp;mode=crop" data-original="/data/service/accessary/{{$geAcc->avatar}}?w=280&amp;h=158&amp;mode=crop" alt="{{$geAcc->name}}" style="display: inline;">
+                                                            </p>
+                                                           
+                                                            <div class="txt">
+                                                                <h3 class="title" title="{{$geAcc->name}}">{{$geAcc->name}}</h3>
+                                                                @php($firstAccDel = $genuineAccessaryDetail->where('acc_id', $geAcc->id)->first())
+                                                                <div class="desc">{{$firstAccDel->summary}}</div>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </a>
-                                            </li>
+                                                    </a>
+                                                </li>
+                                            @endif
                                         
                                             <div data-isloaded="false" id="popViewAutoPart00{{$geAcc->id}}" style="display:none" class="popup_item popup_auto_part">
                                                 <div class="title_p">Phụ tùng chính hãng</div>
@@ -249,118 +249,28 @@
                                     <div id="tabsContentAccessoriesService">
                                         @php($count = 1)
                                         @foreach($genuineAccessoriesGroup as $geAccGrp)
-                                            @php($listGenAcc = $genuineAccessories->where('group_id', $geAccGrp->id)) 
-                                            @foreach($listGenAcc as $genAcc)
-                                            <div id="tab_accessories_service_0{{$geAccGrp->id}}" class="content-tab">
-                                                <div class="inner">
-                                                    <ul class="list_item slide-mb">
-                                                        <li class="item item-accessory ">
-                                                            <div class="inner_item">
-                                                                <p class="img">
-                                                                    <a class="open_popup_pc_pk" data-href="#popup_pc_accessory_0{{$genAcc->id}}" data-index="{{$loop->index}}"><img class="lazy" src="/data/car/accessories/{{$genAcc->car_cate_id}}/{{$genAcc->avatar}}?w=257&amp;h=127&amp;mode=crop" alt="" style="display: inline;"></a>
-                                                                </p>
-                                                                <div class="txt">
-                                                                    <div class="name"><span class="txt1"><a title="{{$genAcc->name}}">{{$genAcc->name}}</a></span></div>
-                                                                    <p class="price">Giá từ: <span>{{$genAcc->price}}</span> <sup>VND</sup></p>
-                                                                </div>
+                                        <div id="tab_accessories_service_0{{$geAccGrp->id}}" class="content-tab">
+                                            <div class="inner">
+                                                <ul class="list_item slide-mb">
+                                                    @php($listGenAcc = $genuineAccessories->where('group_id', $geAccGrp->id)) 
+                                                    @foreach($listGenAcc as $genAcc)
+                                                    <li class="item item-accessory ">
+                                                        <div class="inner_item">
+                                                            <p class="img">
+                                                                <a class="open_popup_pc_pk" data-href="#popup_pc_accessory_0{{$loop->parent->index}}" data-index="{{$loop->index}}"><img class="lazy" src="/data/car/accessories/{{$genAcc->car_cate_id}}/{{$genAcc->avatar}}?w=257&amp;h=127&amp;mode=crop" alt="" style="display: inline;"></a>
+                                                            </p>
+                                                            <div class="txt">
+                                                                <div class="name"><span class="txt1"><a title="{{$genAcc->name}}">{{$genAcc->name}}</a></span></div>
+                                                                <p class="price">Giá từ: <span>{{ number_format($genAcc->price) }}</span> <sup>VND</sup></p>
                                                             </div>
-                                                        </li>
-                                                    </ul>
-                                                    <a class="link-viewmore view-more-service view-more-accessory viewall" data-tabid="tab_accessories_service_01" isopen="false"><span>Xem thêm...</span></a>
-                                                </div>
+                                                        </div>
+                                                    </li>
+                                                    @endforeach
+                                                </ul>
+                                                <a class="link-viewmore view-more-service view-more-accessory viewall" data-tabid="tab_accessories_service_0{{$geAccGrp->id}}" isopen="false"><span>Xem thêm...</span></a>
                                             </div>
-                                            @endforeach
+                                        </div>
                                         @endforeach
-                                        {{-- <div id="tab_accessories_service_02" class="content-tab" style="display: none;">
-                                            <div class="inner">
-                                                <ul class="list_item slide-mb">
-                                                    <li class="item item-accessory ">
-                                                        <div class="inner_item">
-                                                            <p class="img">
-                                                                <a class="open_popup_pc_pk" data-href="#popup_pc_accessory_01" data-index="0"><img class="lazy" src="/data/accessories/33/image018.png?w=257&amp;h=127&amp;mode=crop" alt="" style="display: inline;"></a>
-                                                            </p>
-                                                            <div class="txt">
-                                                                <div class="name"><span class="txt1"><a title="Ốp bậc lên xuống không đèn">Ốp bậc lên xuống không đèn</a></span></div>
-                                                                <p class="price">Giá từ: <span>2.343.800</span> <sup>VND</sup></p>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                                <a class="link-viewmore view-more-service view-more-accessory viewall" data-tabid="tab_accessories_service_02" isopen="false"><span>Xem thêm...</span></a>
-                                            </div>
-                                        </div>
-                                        <div id="tab_accessories_service_03" class="content-tab" style="display: none;">
-                                            <div class="inner">
-                                                <ul class="list_item slide-mb">
-                                                    <li class="item item-accessory ">
-                                                        <div class="inner_item">
-                                                            <p class="img">
-                                                                <a class="open_popup_pc_pk" data-href="#popup_pc_accessory_02" data-index="0"><img class="lazy" src="/data/accessories/232/1. Trang trí phía dưới cản trước.jpg?w=257&amp;h=127&amp;mode=crop" alt="" style="display: inline;"></a>
-                                                            </p>
-                                                            <div class="txt">
-                                                                <div class="name"><span class="txt1"><a title="Ốp trang trí phía dưới cản trước">Ốp trang trí phía dưới cản trước</a></span></div>
-                                                                <p class="price">Giá từ: <span>3.763.000</span> <sup>VND</sup></p>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                                <a class="link-viewmore view-more-service view-more-accessory viewall" data-tabid="tab_accessories_service_03" isopen="false"><span>Xem thêm...</span></a>
-                                            </div>
-                                        </div>
-                                        <div id="tab_accessories_service_04" class="content-tab" style="display: none;">
-                                            <div class="inner">
-                                                <ul class="list_item slide-mb">
-                                                    <li class="item item-accessory ">
-                                                        <div class="inner_item">
-                                                            <p class="img">
-                                                                <a class="open_popup_pc_pk" data-href="#popup_pc_accessory_03" data-index="0"><img class="lazy" src="/data/accessories/15/Khay-hành-lý-2.png?w=257&amp;h=127&amp;mode=crop" alt="" style="display: inline;"></a>
-                                                            </p>
-                                                            <div class="txt">
-                                                                <div class="name"><span class="txt1"><a title="Khay hành lý">Khay hành lý</a></span></div>
-                                                                <p class="price">Giá từ: <span>2.121.000</span> <sup>VND</sup></p>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                                <a class="link-viewmore view-more-service view-more-accessory viewall" data-tabid="tab_accessories_service_04" isopen="false"><span>Xem thêm...</span></a>
-                                            </div>
-                                        </div>
-                                        <div id="tab_accessories_service_05" class="content-tab" style="display: none;">
-                                            <div class="inner">
-                                                <ul class="list_item slide-mb">
-                                                    <li class="item item-accessory ">
-                                                        <div class="inner_item">
-                                                            <p class="img">
-                                                                <a class="open_popup_pc_pk" data-href="#popup_pc_accessory_04" data-index="0"><img class="lazy" src="/data/accessories/20/Khóa-lốp-2.png?w=257&amp;h=127&amp;mode=crop" alt="" style="display: inline;"></a>
-                                                            </p>
-                                                            <div class="txt">
-                                                                <div class="name"><span class="txt1"><a title="Khóa lốp">Khóa lốp</a></span></div>
-                                                                <p class="price">Giá từ: <span>1.088.800</span> <sup>VND</sup></p>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                                <a class="link-viewmore view-more-service view-more-accessory viewall" data-tabid="tab_accessories_service_05" isopen="false"><span>Xem thêm...</span></a>
-                                            </div>
-                                        </div>
-                                        <div id="tab_accessories_service_06" class="content-tab" style="display: none;">
-                                            <div class="inner">
-                                                <ul class="list_item slide-mb">
-                                                    <li class="item item-accessory ">
-                                                        <div class="inner_item">
-                                                            <p class="img">
-                                                                <a class="open_popup_pc_pk" data-href="#popup_pc_accessory_05" data-index="0"><img class="lazy" src="/data/accessories/26/Bộ-mở-cốp-tự-động-2.png?w=257&amp;h=127&amp;mode=crop" alt="" style="display: inline;"></a>
-                                                            </p>
-                                                            <div class="txt">
-                                                                <div class="name"><span class="txt1"><a title="Mở cốp tự động">Mở cốp tự động</a></span></div>
-                                                                <p class="price">Giá từ: <span>3.987.000</span> <sup>VND</sup></p>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                                <a class="link-viewmore view-more-service view-more-accessory viewall" data-tabid="tab_accessories_service_06" isopen="false"><span>Xem thêm...</span></a>
-                                            </div>
-                                        </div> --}}
                                     </div>
                                 </div>
                             </div>
@@ -368,6 +278,8 @@
                     </div>
                 </div>
                 <!--End of Phu tung, phu kien-->
+
+                @include('layout.popup.accessory')
 
                 <!--Dich vu sua chua-->
                 <div id="sec_dv_04" class="scrollspy">

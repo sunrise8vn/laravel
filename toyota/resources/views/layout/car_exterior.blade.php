@@ -21,7 +21,7 @@
                         <p class="name_dt">Ngoại thất</p>
                         <p class="txt_dt">{{$carExteriorsGroup['title']}}</p>
                         <p class="txt_dt_2">{{$carExteriorsGroup['description']}}</p>
-                        <p class="sm-link-viewmore"><a class="changelink" data-href="/ngoai-that/{{$car->permalink}}.html">Xem thêm ...</a></p>
+                        <p class="sm-link-viewmore"><a class="changelink" data-href="{{ route('exteriors.getDetail', $car->permalink) }}">Xem thêm ...</a></p>
                     </div>
                 </div>
             </div>
