@@ -103,4 +103,26 @@ class CarColorController extends Controller
         $carcolor->save();
     }
 
+    public function getListColor(Request $request)
+    {
+        $car_id = $request->car_id;
+        $car = Cars::find($car_id);
+        $carColors = CarColors::where('car_id', $car_id)->whereIsdeleted(0)->orderBy('id', 'asc');
+        $result = $carColors->get();
+        $str = "";
+        foreach ($result as $rs) {
+            $str .= '<option data-img="/data/car/color/'.$rs->car_id.'/'.$rs->avatar.'?width=500" value="'.$car->price.'" data-id="'.$car_id.'">'.$rs->name.'</option>';
+        }
+        
+        return $str;
+    }
+
+    public function getFirstColor(Request $request)
+    {
+        $car_id = $request->car_id;
+        $carColors = CarColors::where('car_id', $car_id)->whereIsdeleted(0)->orderBy('id', 'asc');
+        
+        return $carColors->First();
+    }
+
 }

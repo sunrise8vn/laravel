@@ -23,9 +23,16 @@ class OtherInfoCarController extends Controller
 
     public function getDelete(Request $request) 
     {
-        $id = $request->id;
+        $id = $request->car_id;
         $otherInfoCar = OtherInfoCar::find($id);
-        $otherInfoCar->isDeleted = 1;
-        $otherInfoCar->save();
+        $otherInfoCar->delete();
+        // $otherInfoCar->save();
+    }
+
+    public function getListOtherInfo(Request $request) 
+    {
+        $car_id = $request->car_id;
+        $otherInfoCar = OtherInfoCar::where('car_id', $car_id)->where('isDeleted', 0)->orderBy('id', 'asc')->get();
+        return $otherInfoCar;
     }
 }

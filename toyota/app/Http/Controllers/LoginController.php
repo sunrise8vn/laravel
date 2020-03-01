@@ -19,7 +19,6 @@ class LoginController extends Controller
         else {
             return redirect('cp');
         }
-        
     }
 
     public function postLogin(Request $request)
@@ -50,6 +49,5 @@ class LoginController extends Controller
             return redirect()->back()->with('notification','Đăng nhập không thành công');
         }
     }
-
     
 }

@@ -44,11 +44,24 @@ class ServiceController extends Controller
         $genuineAccessoriesGroup = GenuineAccessoriesGroup::where('isDeleted', 0)->get();
         $genuineAccessories = GenuineAccessories::where('isDeleted', 0)->get();
 
-        // $firstAccDel = $genuineAccessaryDetail->where('acc_id', 256)->first();
-        // dd($firstAccDel);
-
-
         return view('service', ['carCategory'=>$carCategory, 'carDetail'=>$carDetail, 'otherInfoCar'=>$otherInfoCar, 'warrantyPolicy'=>$warrantyPolicy, 'maintenanceServices'=>$maintenanceServices, 'repairServices'=>$repairServices, 'freeTestPrograms'=>$freeTestPrograms, 'summonPrograms'=>$summonPrograms, 'genuineAccessary'=>$genuineAccessary, 'genuineAccessaryDetail'=>$genuineAccessaryDetail, 'genuineAccessaryGroup'=>$genuineAccessaryGroup, 'genuineAccessoriesGroup'=>$genuineAccessoriesGroup, 'genuineAccessories'=>$genuineAccessories]);
 
+    }
+
+    public function getAccessoriesGroup(Request $request)
+    {
+        $car_cate_id = $request->car_cate;
+        $id_group = GenuineAccessoriesGroup::pluck('id')->all();
+        $genuineAccessories = GenuineAccessories::whereIn('group_id', $id_group)->where('car_cate_id', $car_cate_id)->whereIsdeleted(0)->groupBy('group_id')->get();
+        $group_id =  $genuineAccessories->pluck('group_id');
+        $group_name = GenuineAccessoriesGroup::whereIn('id', $group_id)->get();
+        return $group_name;
+    }
+
+    public function getAccessories(Request $request)
+    {
+        $car_cate_id = $request->car_cate;
+        $genuineAccessories = GenuineAccessories::where('car_cate_id', $car_cate_id)->whereIsdeleted(0)->get();
+        return $genuineAccessories;
     }
 }

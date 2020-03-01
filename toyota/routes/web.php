@@ -16,6 +16,9 @@ Route::get('/', 'HomeController@index');
 
 Auth::routes();
 
+
+Route::get('/send/email', 'MailController@mail');
+
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/gioi-thieu-dai-ly.html', 'IntroduceController@index')->name('introduce.index');
 Route::get('/so-do-trang.html', 'SiteMapController@index')->name('site-map.index');
@@ -24,7 +27,7 @@ Route::get('/chinh-sach-bao-mat-thong-tin-ca-nhan.html', 'PrivacyPolicyControlle
 Route::get('/tin-tuc/{permalink}.html','NewsController@getNewsDetail')->name('news.getDetail');
 Route::get('/tin-tuc/{permalink}','NewsController@getAllNews')->name('news.getAll');
 Route::get('/nhan-vien/{permalink}','SalesmenController@getAll')->name('salesmen.getAll');
-Route::get('/dich-vu.html','Service\ServiceController@index')->name('service.index');
+Route::get('/dich-vu','Service\ServiceController@index')->name('service.index');
 Route::get('/xe/{permalink}','CarController@getCarDetail')->name('car.permalink');
 Route::get('/xe-moi','NewCarController@index')->name('newcar.index');
 Route::get('/tu-van-tai-chinh.html','ConsultantFinancialController@index')->name('consultant-financial.index');
@@ -36,8 +39,10 @@ Route::get('/thu-vien/{permalink}.html','CarLibraryController@getDetail')->name(
 Route::get('/ngoai-that/{permalink}.html','CarExteriorsController@getDetail')->name('exteriors.getDetail');
 Route::get('/noi-that/{permalink}.html','CarFurnituresController@getDetail')->name('furnitures.getDetail');
 
-Route::get('/du-toan-chi-phi','CostEstimatesController@index');
+Route::get('/du-toan-chi-phi','CostEstimatesController@index')->name('cost-estimates.index');
 Route::get('/dang-ky-lai-thu','RegisterTestDriveController@index')->name('test-drive.index');
+
+Route::get('/ho-tro-tai-chinh','FinancialSupportController@index')->name('financial-support.index');
 
 Route::get('/{type}/{permalink}.html','CarController@getFunctions');
 Route::get('/tinh-nang/{type}/{permalink}','CarController@getFunctionsMb');
@@ -46,6 +51,8 @@ Route::get('/so-sanh','CarCompareController@index');
 
 Route::get('/tai-file','DownloadFileController@index')->name('download.index');
 
+Route::get('/financial/export/', 'FinancialSupportController@export');
+Route::get('/financial5050/export/', 'FinancialSupportController@exportHaft');
 
 
 Route::get('auth/facebook', 'FacebookAuthController@redirectToProvider')->name('facebook.login') ;

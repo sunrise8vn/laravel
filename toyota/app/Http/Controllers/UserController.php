@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Redirect;
+use App\Exports\UserExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class UserController extends Controller
 {
@@ -51,6 +54,7 @@ class UserController extends Controller
         $user->email = strtolower($request->email);
         $user->password = Hash::make($request->password);
         $user->avatar = $request->avatar;
+        $user->role = 0;
         $user->isDeleted = 0;
         $user->save();
         // $updated_by = Auth::user()->id;
@@ -81,5 +85,12 @@ class UserController extends Controller
         // $user->update();
 
         return Redirect::back()->with('success','Thêm thành viên quản trị viên thành công');
+    }
+
+    public function export(Request $request)
+    {
+        // $abc = "123";
+        // return Excel::download(new UserExport($abc), 'BangTinh_TruyenThong_Thang.xlsx');
+        // return view('export.users');
     }
 }
