@@ -2,9 +2,6 @@ function openPage(pageURL) {
     window.location.href = pageURL;
 }
 
-
-
-
 $("#lien-he").submit(function(event) {
     event.preventDefault();
     // form = $(this).serialize();
@@ -106,6 +103,108 @@ function postContactStaff() {
         error() {
             $(".fancybox-close-small").click();
             showSuccessbyAlert('Liên hệ', "<p>Chúng tôi rất tiếc!<br/>Đã xảy ra lỗi trong quá trình gửi yêu cầu.</p>");
+        }
+    });
+}
+
+$('#ddlCateCar').change(function(){
+    var selectVal = $(this).val();
+    $.ajax({
+        type: "get",
+        url: "/api/service/getAccessoriesGroup",
+        data : {
+            car_cate : selectVal,
+        },
+        success: function(data) {
+            // console.log(data);
+            let text = '';
+            let text2 = '';
+            if(data.length > 0) {
+                var group_id = data[0].id;
+                $('#ulAccessoriesService').html("");
+                $('#tabsContentAccessoriesService').html("");
+                console.log(data.length);
+                for (let i = 0; i < data.length; i++) {
+                    text = '';
+                    text2 = '';
+                    text += '<li class="tab"><a href="#tab_accessories_service_0' + data[i].id + '">'+data[i].name+'</a></li>';
+                    $('#ulAccessoriesService').append(text);
+                    if(data[i].id == group_id) {
+                        text2 += '<div id="tab_accessories_service_0' + data[i].id + '" class="content-tab">';
+                        text2 += '<div class="inner">';
+                        text2 += '<ul class="list_item slide-mb">';
+                        text2 += '</ul>';
+                        text2 += '</div>';
+                        text2 += '</div>';
+                    }
+                    else {
+                        text2 += '<div id="tab_accessories_service_0' + data[i].id + '" class="content-tab" style="display: none;">';
+                        text2 += '<div class="inner">';
+                        text2 += '<ul class="list_item slide-mb">';
+                        text2 += '</ul>';
+                        text2 += '</div>';
+                        text2 += '</div>';
+                    }
+                    
+                    $('#tabsContentAccessoriesService').append(text2);
+                }
+                $( "#tab_pt_02 ul li a").eq(0).addClass( "active" );
+                // $( "#tab_pt_02 ul li").eq(0).click();
+                getAccessories(selectVal);
+            }
+            else {
+                $('#ulAccessoriesService').html("");
+                $('#tabsContentAccessoriesService').html("");
+            }
+        },
+        error: function (error) { 
+            alert("error");
+            console.log(error);
+        }
+    });
+})
+
+function getAccessories(car_cate_id) {
+    $.ajax({
+        type: "get",
+        url: "/api/service/getAccessories",
+        data : {
+            car_cate : car_cate_id,
+        },
+        success: function(data) {
+            let str = '';
+            for (let i = 0; i < data.length; i++) {
+                str = '';
+                // str += '<div id="tab_accessories_service_0' + data[i].group_id + '" class="content-tab">';
+                // str += '<div class="inner">';
+                // str += '<ul class="list_item slide-mb">';
+                str += '<li class="item item-accessory ">';
+                str += '<div class="inner_item">';
+                str += '<p class="img">';
+                str += '<a class="open_popup_pc_pk" data-href="#popup_pc_accessory_05" data-index="'+i+'">';
+                str += '<img class="lazy" src="/data/car/accessories/'+data[i].car_cate_id+'/'+data[i].avatar+'?w=257&amp;h=127&amp;mode=crop" alt="" style="display: inline;">';
+                str += '</a>';
+                str += '</p>';
+                str += '<div class="txt">';
+                str += '<div class="name">';
+                str += '<span class="txt1">';
+                str += '<a title="'+data[i].name+'">'+data[i].name+'</a>';
+                str += '</span>';
+                str += '</div>';
+                let price = numeral(data[i].price).format('0,0');
+                str += '<p class="price">Giá từ: <span>'+ price +'</span> <sup>VND</sup></p>';
+                str += '</div>';
+                str += '</div>';
+                str += '</li>';
+                // str += '</ul>';
+                // // str += '<a class="link-viewmore view-more-service view-more-accessory viewall" data-tabid="tab_accessories_service_0247" isopen="false"><span>Xem thêm...</span></a>';
+                // str += '</div>';
+                // str += '</div>';
+                $('#tab_accessories_service_0' + data[i].group_id + " .list_item").append(str);
+            }
+        },
+        error: function(error) { 
+            console.log(error);
         }
     });
 }
