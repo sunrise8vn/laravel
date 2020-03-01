@@ -6,12 +6,12 @@
             <span><a href="/so-sanh.chn">So sánh xe</a></span>
         </p>
         <p class="item">
-            <a class="toolAction" href="/du-toan-chi-phi.chn"><i>Dự toán<br />chi phí</i><img src="/Content/images/tool_icon_right_03.png" alt="Dự toán chi phí"></a>
-            <span><a href="/du-toan-chi-phi.chn">Dự toán chi phí</a></span>
+            <a class="toolAction" href="{{ route('cost-estimates.index') }}"><i>Dự toán<br />chi phí</i><img src="/Content/images/tool_icon_right_03.png" alt="Dự toán chi phí"></a>
+            <span><a href="{{ route('cost-estimates.index') }}">Dự toán chi phí</a></span>
         </p>
         <p class="item">
-            <a class="toolAction" href="/dang-ky-lai-thu.chn"><i>Đăng ký<br />lái thử</i><img src="/Content/images/tool_icon_right_04.png" alt="Đăng ký lái thử"></a>
-            <span><a href="/dang-ky-lai-thu.chn">Đăng ký lái thử</a></span>
+            <a class="toolAction" href="{{ route('test-drive.index') }}"><i>Đăng ký<br />lái thử</i><img src="/Content/images/tool_icon_right_04.png" alt="Đăng ký lái thử"></a>
+            <span><a href="{{ route('test-drive.index') }}">Đăng ký lái thử</a></span>
         </p>
         <p class="item">
             <a class="toolAction" href="/dang-ky-dich-vu.chn"><i>Đặt lịch hẹn<br />dịch vụ</i><img src="/Content/images/tool_icon_right_06.png" alt="Đặt lịch hẹn dịch vụ"></a>

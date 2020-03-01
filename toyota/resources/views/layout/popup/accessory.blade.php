@@ -17,7 +17,7 @@
                                 <div class="txt_p_1">{{$genAcc->name}}</div>
                                 <div class="txt_p_2">Giá: <strong>{{ number_format($genAcc->price) }} <sup>VND</sup></strong><br></div>
                                 <div class="txt_p_3">{{$genAcc->content}}</div>
-                                <div class="txt_index">8 / 14</div>
+                                <div class="txt_index">{{$loop->iteration}} / {{$loop->count}}</div>
                             </div>
                         </div>
                     </div>

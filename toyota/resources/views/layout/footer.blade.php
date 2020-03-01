@@ -17,8 +17,8 @@
                             <ul class="ft-list">
                                 <h3>C&#244;ng cụ hỗ trợ</h3>
                                 <li><a title="So s&#225;nh sản phẩm" href='/so-sanh'>So s&#225;nh sản phẩm</a></li>
-                                <li><a title="Dự to&#225;n chi ph&#237;" href='/du-toan-chi-phi.html'>Dự to&#225;n chi ph&#237;</a></li>
-                                <li><a title="Hỗ trợ t&#224;i ch&#237;nh" href='/ho-tro-tai-chinh.html'>Hỗ trợ t&#224;i ch&#237;nh</a></li>
+                                <li><a title="Dự to&#225;n chi ph&#237;" href='{{ route('cost-estimates.index') }}'>Dự to&#225;n chi ph&#237;</a></li>
+                                <li><a title="Hỗ trợ t&#224;i ch&#237;nh" href='{{ route('financial-support.index') }}'>Hỗ trợ t&#224;i ch&#237;nh</a></li>
                                 <li><a title="Đăng k&#253; l&#225;i thử" href='{{ route('test-drive.index') }}'>Đăng k&#253; l&#225;i thử</a></li>
                                 <li><a title="Đặt lịch hẹn dịch vụ" href='/dang-ky-dich-vu.html'>Đặt lịch hẹn dịch vụ</a></li>
                                 {{-- <li><a title="So s&#225;nh xe đ&#227; qua sử dụng" href='/so-sanh-xe-da-qua-su-dung.html'>So s&#225;nh xe đ&#227; qua sử dụng</a></li> --}}
