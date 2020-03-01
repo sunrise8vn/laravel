@@ -302,7 +302,7 @@
                                                         <span>&#8226; {{$car->origin}}</span>
                                                         @if(!empty($otherInfo))
                                                         	@foreach($otherInfo as $item)
-                                                        		<span> &#8226; {{$item->content}}</span>
+                                                        		<span>&#8226; {{$item->content}}</span>
                                                         	@endforeach
                                                         @endif
                                                     </p>
@@ -342,159 +342,15 @@
 </div>
     @include('layout.tool_icon_right')
 
-	@include('layout.jsfiles')
 	
+    
+	@include('layout.jsfiles')
 	<script src="/admin_asset/bower_components/jquery/dist/jquery.min.js"></script>
+	
 	
 	<script src="/admin_asset/js/numeral.min.js"></script>
 
-	<script type="text/javascript">
-		var car_cate = [];
-		var price = [];
-		var fuel = [];
-		var design = [];
-		var origin = [];
-		var seat = [];
-
-		$(".ckCarCate").click(function () {
-		     car_cate = [];
-		    $(".ckCarCate").each(function() {
-		    	if($(this).is(":checked")) {
-		    		car_cate.push($(this).val());
-		    	}
-		    });
-		    
-		    getAll();
-		});
-
-		$(".ckPrice").click(function() {
-			price = [];
-			$(".ckPrice:checked").not(this).prop("checked", "");
-			$(".ckPrice").each(function() {
-				if($(this).is(":checked")) {
-					price.push($(this).val());
-				}
-			})
-			getAll();
-		})
-
-		$(".ckFuel").click(function() {
-			fuel = [];
-			$(".ckFuel").each(function() {
-				if($(this).is(":checked")) {
-					fuel.push($(this).val());
-				}
-			})
-			getAll();
-		})
-
-		$(".ckSeat").click(function() {
-			seat = [];
-			$(".ckSeat").each(function() {
-				if($(this).is(":checked")) {
-					seat.push($(this).val());
-				}
-			})
-			getAll();
-		})
-
-		$(".ckStyle").click(function() {
-			design = [];
-			$(".ckStyle").each(function() {
-				if($(this).is(":checked")) {
-					design.push($(this).val());
-				}
-			})
-			getAll();
-		})
-
-		$(".ckMadeIn").click(function() {
-			origin = [];
-			$(".ckMadeIn").each(function() {
-				if($(this).is(":checked")) {
-					origin.push($(this).val());
-				}
-			})
-			getAll();
-		})
-
-		function doesFileExist(urlToFile)
-		{
-		    var xhr = new XMLHttpRequest();
-		    xhr.open('HEAD', urlToFile, false);
-		    xhr.send();
-
-		    if (xhr.status == "404") {
-		        return false;
-		    } else {
-		        return true;
-		    }
-		}
-
-		function getAll() {
-            $.ajax({
-		        type: "get",
-		        url: "/api/NewCar/getListNewCar",
-		        data : {
-		            car_cate : car_cate.toString(),
-		            price : price.toString(),
-		            fuel : fuel.toString(),
-		            seat : seat.toString(),
-		            design : design.toString(),
-		            origin : origin.toString(),
-		        },
-		        success: function(data) {
-		        	let text = '';
-		        	// console.log(data);
-                    for (let i = 0; i < data.length; i++) {
-                    	text += '<li class="item">';
-                       	text += '<div class="inner">';
-                        text += '<div class="inner_ct">';
-                        text += '<a href="/xe/'+data[i].permalink+'">';
-                        text += '<div class="link-top">';
-                        text += '<span>Giá <strong>'+ data[i].price + '</strong><sup>VND</sup></span>';
-                        text += '</div>';
-                        text += '<div class="img">';
-                        if(doesFileExist("data/car/thumb/"+data[i].id+'/'+data[i].avatar)) {
-                        	text += '<img class="lazy" src="/data/car/thumb/'+data[i].id+'/'+data[i].avatar+'?w=250&h=145&mode=crop" data-original="/data/car/thumb/'+data[i].id+'/'+data[i].avatar+'?w=250&h=145&mode=crop" />';
-                        }
-                        else {
-                    		text += '<img class="lazy" src="Content/images/notfound/notfound-images1e4c.png?w=250&amp;h=145&amp;mode=crop" data-original="/data/car/thumb/'+data[i].id+'/'+data[i].avatar+'?w=250&h=145&mode=crop" />';
-                        }
-                        text += "</div>";
-                        text += '<div class="txt">';
-                    	text += '<div class="txt1">';
-                        text += '<span>';
-                        text += '<p class="name">'+data[i].name+'</p>';
-                        text += '</span>';
-                        text += '</div>';
-                        text += '<div class="txt2">';
-                        text += '<p class="price">';
-                        text += '<span class="t1">Giá từ:</span>';
-                        let price = numeral(data[i].price).format('0,0');
-                        text += '<strong>' + price + '</strong> <sup>VND</sup>';                                   
-                        text += '</p>';
-                        text += '<p class="desc">';
-                        text += '<span>&#8226; ' + data[i].number_of_seats + ' chỗ</span>';
-                        text += '<span>&#8226; ' + data[i].design + '</span>';
-                        text += '<span>&#8226; ' + data[i].fuel + '</span>';
-                        text += '<span>&#8226; ' + data[i].origin + '</span>';
-                        text += '</p>';
-                        text += '</div>';
-                        text += '</div>';
-                        text += '</a>';
-                        text += '</div>';
-                        text += '</div>';
-                        text += '</li>';
-                    }
-                    // $("#ulProduct").fadeIn();
-		            $("#ulProduct").html(text);
-		        },
-		        error(data) {
-		        	console.log(data);
-		        }
-		    });
-        }
-	</script>
+	<script type="text/javascript" src="/admin_asset/js/newcar.js"></script>
+	
 </body>
 </html>
