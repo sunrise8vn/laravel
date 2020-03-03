@@ -19,7 +19,7 @@ class FinancialSupportController extends Controller
       if($request->ajax() || 'NULL'){
         $carCategory = CarCategory::where('isDeleted', 0)->orderBy('id', 'desc')->get();
         $carLists = Cars::where('isDeleted', 0)->get();
-        $carDetail = Cars::where('isDeleted', 0)->paginate(12);
+        $carDetail = Cars::where('isDeleted', 0)->get();
 
         $otherInfoCar = OtherInfoCar::where('isDeleted', 0)->orderBy('id', 'asc')->get();
 
@@ -49,7 +49,7 @@ class FinancialSupportController extends Controller
             $str .= '<div class="inner">';
             $str .= '<div class="sm_checkbox">';
             $catPermalink = CarCategory::where('id', $rs->car_cate_id)->whereIsdeleted(0)->first()->permalink;
-            $str .= '<input type="checkbox" class="checkCarTool" data-url="'.$rs->permalink .'" data-image="/data/car/thumb/'.$rs->id .'/'.$rs->avatar .'?width=500" data-caturl="'.$catPermalink .'" data-catId="'.$rs->car_cate_id.'" data-name="'.$rs->name .'" data-price="'.number_format($rs->price) .'" data-carid="'.$rs->id .'" id="checkbox-0'.$rs->id .'">';
+            $str .= '<input type="checkbox" class="checkCarTool2" data-url="'.$rs->permalink .'" data-image="/data/car/thumb/'.$rs->id .'/'.$rs->avatar .'?width=500" data-caturl="'.$catPermalink .'" data-catId="'.$rs->car_cate_id.'" data-name="'.$rs->name .'" data-price="'.number_format($rs->price) .'" data-carid="'.$rs->id .'" id="checkbox-0'.$rs->id .'">';
 
             $str .= '<label for="checkbox-0'.$rs->id .'">';
             $str .= '<span class="img">';
@@ -87,7 +87,6 @@ class FinancialSupportController extends Controller
     public function exportHaft()
     {
         return Excel::download(new Financial5050Export(), 'BangTinh_5050.xlsx');
-        // return view('export.financial5050');
     }
 
 
